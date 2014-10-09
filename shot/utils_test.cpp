@@ -87,12 +87,13 @@ TEST(ShotUtils, encodeCookie) {
 TEST(ShotUtils, decodeCookie) {
   string secret = "/20kVLglQLCQimcBb+q2w5FhdqRyKkutuJo3u+uUf14=";
   time_t clock = 1409917858 + 10;
+  int days = 3000; // set this day long, cookie will valid
   string name = "passowrd";
   string value = "1|1:0|10:1409917858|8:passowrd|20:cGFzc3dvcmQgdmFsdWU=|5735aaee04eeecdd54ca0e3dfbc080be1c019f94d635fe823f2657387c1e4f70";
 
   string expected = "password value";
 
-  ASSERT_THAT(shot::decodeCookie(secret, name, value, 30, clock), expected);
+  ASSERT_THAT(shot::decodeCookie(secret, name, value, days, clock), expected);
 }
 
 
@@ -158,4 +159,11 @@ TEST(ShotUtils, checkPassword) {
   ASSERT_THAT(shot::checkPassword(pass2, pass2enc), true);
   ASSERT_THAT(shot::checkPassword(pass1, pass2enc), false);
   ASSERT_THAT(shot::checkPassword(pass2, pass1enc), false);
+}
+
+
+TEST(ShotUtils, unquote) {
+  string source = "\"Some value\"";
+
+  ASSERT_THAT(shot::unquote(source), testing::Eq("Some value"));
 }

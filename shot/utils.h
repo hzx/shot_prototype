@@ -22,7 +22,9 @@ void toCamelFormat(string& text);
 void toLower(string& text);
 string joinUrlSlugs(vector<string>::iterator begin, vector<string>::iterator end);
 string getDirectory();
+void makeDir(const string& path);
 string getExtension(const string& filename);
+string randomFilename(const string& filename);
 void tolower(string& value);
 string encodeUrl(const string& value);
 string decodeUrl(const string& value);
@@ -60,6 +62,7 @@ string encodeSaltValue(const string& salt, const string& value);
 string createSalt();
 string encodePassword(const string& raw);
 bool checkPassword(const string& raw, const string& encoded);
+string unquote(string& source);
 
   
 } /* namespace shot */

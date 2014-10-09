@@ -90,16 +90,6 @@ void Server::run() {
   auto EPOLL_BAD_EVENTS = EPOLLERR | EPOLLHUP | EPOLLRDHUP;
   auto EPOLL_CLIENT_EVENTS = EPOLLIN | EPOLLET | EPOLL_BAD_EVENTS;
 
-  // add listenSocket to epoll
-  /* epoll_event ev; */
-  /* ev.events = EPOLLIN | EPOLLET; */
-  /* ev.data.fd = listenSocket; */
-
-  /* if (epoll_ctl(epfd, EPOLL_CTL_ADD, listenSocket, &ev) == -1) { */
-  /*   errorCode = -1; */
-  /*   Logger::instance().error(errorCode, "add listenSocket to epoll error"); */
-  /*   return; */
-  /* } */
   if (!epollAdd(listenSocket, EPOLLIN | EPOLLET)) {
     Logger::instance().error(errorCode, "add listenSocket to epoll error");
   }
@@ -166,35 +156,27 @@ void Server::run() {
         }
       } else { // process data from clientSocket
         clientSocket = events[n].data.fd;
+        // TODO: optimize - eliminate ostringstream, use member char buffer[size]
         std::ostringstream buffer;
         /* bool systemHandler = false; */
         
         // read socket
         readSocket(clientSocket, buffer);
+        string source = buffer.str();
+        size_t sourceLength = source.length();
 
         // search handler by socket
         Handler* handler = getHandler(clientSocket);
 
         if (handler) { // read body
-          parser.parseBody(*(handler->request), buffer.str());
+          parser.parseBody(*(handler->request), source, 0, sourceLength);
         } else { // read head
           std::unique_ptr<Request> request(new Request());
-          parser.initRequest(*request, buffer.str());
+
+          parser.parse(*request, source, sourceLength);
 
           // create and init handler
           handler = createHandler(clientSocket, *request);
-          /* if (!handler) { // replace handler by system handler */
-          /*   systemHandler = true; */
-          /*   request->isDone = true; */
-          /*   if (request->isBad or request->method == C_NONE) { */
-          /*     handler = factory403(&(*request)); */
-          /*     handler->response.status = HTTP_403; */
-          /*   } else { */
-          /*     handler = factory404(&(*request)); */
-          /*     handler->response.status = HTTP_404; */
-          /*   } */
-          /*   storeHandler(clientSocket, handler); */
-          /* } */
           handler->socket = clientSocket;
           handler->request = request.release();
         }

@@ -8,6 +8,8 @@
 #include <cstdlib>
 #include <cstring>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <ctime>
 #include <unordered_map>
 #include <openssl/sha.h>
@@ -165,6 +167,11 @@ string getDirectory() {
 }
 
 
+void makeDir(const string& path) {
+  int status = mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+}
+
+
 string getExtension(const string& filename) {
   auto pos = filename.find_last_of('.');
 
@@ -174,6 +181,15 @@ string getExtension(const string& filename) {
 
   // skip . by + 1
   return filename.substr(pos + 1);
+}
+
+
+string randomFilename(const string& filename) {
+  string ext = getExtension(filename);
+
+  string name = uuid4();
+
+  return ext.length() > 0 ? name + '.' + ext : name;
 }
 
 
@@ -638,6 +654,17 @@ bool checkPassword(const string& raw, const string& encoded) {
   string actual = encodeSaltValue(salt, raw);
 
   return actual == expected;
+}
+
+
+string unquote(string& source) {
+  size_t lpos = 0;
+  size_t rpos = source.length();
+
+  if (source[lpos] == '"') ++lpos;
+  if (source[rpos - 1] == '"') --rpos;
+
+  return string(source, lpos, rpos - lpos);
 }
 
 

@@ -1,5 +1,8 @@
 /* #include <cstring> */
 #include <ctime>
+#include <iostream>
+#include <cstring>
+#include <cstdio>
 #include "shot/Request.h"
 #include "shot/Config.h"
 #include "shot/http.h"
@@ -13,14 +16,22 @@ using std::string;
 namespace shot {
 
 
+File::File()
+    : isCreated(false) {}
+
+
 Request::Request()
     : isBad(false)
     , isDone(false)
-    , method(C_NONE) {
+    , method(C_NONE)
+    , contentType(C_FORM_NONE)
+    , contentLength(0)
+    , contentProgress(0) {
 }
 
 
 Request::~Request() {
+  removeFiles();
 }
 
 
@@ -29,13 +40,16 @@ bool Request::isKeepAlive() {
   if (iter == headers.end()) return false;
 
   toLower(iter->second);
-  return iter->second.compare(V_KEEP_ALIVE) == 0;
+  /* return iter->second.compare(V_KEEP_ALIVE) == 0; */
+  return std::memcmp(iter->second.c_str(), V_KEEP_ALIVE,
+      std::strlen(V_KEEP_ALIVE)) == 0;
 }
 
 
 bool Request::isXhr() {
   auto iter = headers.find(KL_XHR);
-  return iter != headers.end() && (iter->second.compare(V_XHR) == 0);
+  return iter != headers.end() and
+    std::memcmp(iter->second.c_str(), V_XHR, std::strlen(V_XHR)) == 0;
 }
 
 
@@ -44,7 +58,7 @@ bool Request::checkXsrf() {
   auto hit = headers.find(KL_XSRF);
 
   // xsrf must exists in cookie and headers
-  if (cit == cookie.end() || hit == headers.end()) {
+  if (cit == cookie.end() or hit == headers.end()) {
     Logger::instance().write("xsrf cookie or header not found");
     if (cit == cookie.end()) {
       Logger::instance().write("xsrf cookie not found");
@@ -58,8 +72,8 @@ bool Request::checkXsrf() {
     return false;
   }
 
-  // domains must be equal, skip for empty config.host
-  if (!Config::instance().host.empty() &&
+  // hosts must be equal, skip for empty config.host
+  if (!Config::instance().host.empty() and
       Config::instance().host != host) {
     Logger::instance().write("xsrf host not equal"); 
     return false;
@@ -68,7 +82,7 @@ bool Request::checkXsrf() {
   string cookieXsrf = decodeXsrf(cit->second);
   string headerXsrf = decodeXsrf(hit->second);
 
-  if (cookieXsrf.length() == 0 || headerXsrf.length() == 0 ||
+  if (cookieXsrf.length() == 0 or headerXsrf.length() == 0 or 
       cookieXsrf != headerXsrf) {
     Logger::instance().write("xsrf cookie and xsrf header not equal");
     return false;
@@ -100,6 +114,13 @@ string Request::getSecureCookie(const char* name) {
   string value = getCookie(name);
   return value.empty() ? "" : decodeCookie(Config::instance().cookieSecret,
       name, value, 30, std::time(nullptr));
+}
+
+
+void Request::removeFiles() {
+  for (auto i = files.begin(); i != files.end(); ++i) {
+    std::remove(i->path.c_str());
+  }
 }
 
 

@@ -33,6 +33,7 @@ public:
   string filename;
   // current working directory
   string directory;
+  string tmp;
   string host;
   string cookieSecret;
   string dbhost;

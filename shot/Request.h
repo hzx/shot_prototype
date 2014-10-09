@@ -15,14 +15,25 @@ using std::unordered_map;
 namespace shot {
 
 
+class File {
+public:
+  File();
+
+  string name;
+  string filename;
+  string type;
+
+  //  file parse state
+  bool isCreated;
+  string path;
+};
+
+
 class Request {
 public:
   Request();
   ~Request();
 
-  // for debug only
-  /* string protocol; */
-  
   bool isBad;
   bool isDone;
   string host;
@@ -33,8 +44,14 @@ public:
   unordered_map<string, string> headers;
   unordered_map<string, string> cookie;
   unordered_map<string, string> params;
-  // files
+  char contentType;
+  size_t contentLength;
+  size_t contentProgress;
 
+  // files
+  vector<File> files;
+  File file;
+  string mark; // mark symbols, divide files like tag
 
   bool isKeepAlive();
   bool isXhr();
@@ -45,6 +62,7 @@ public:
   string getSecureCookie(const char* name);
 
 private:
+  void removeFiles();
 };
 
 
