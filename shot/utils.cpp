@@ -193,6 +193,13 @@ string randomFilename(const string& filename) {
 }
 
 
+void copyFile(const string& dest, const string& src) {
+  std::ifstream fs (src, std::fstream::binary);
+  std::ofstream fd (dest, std::fstream::trunc | std::fstream::binary);
+  fd << fs.rdbuf ();
+}
+
+
 void tolower(string& value) {
   std::transform(value.begin(), value.end(), value.begin(), ::tolower);
 }

@@ -25,6 +25,7 @@ string getDirectory();
 void makeDir(const string& path);
 string getExtension(const string& filename);
 string randomFilename(const string& filename);
+void copyFile(const string& dest, const string& src);
 void tolower(string& value);
 string encodeUrl(const string& value);
 string decodeUrl(const string& value);

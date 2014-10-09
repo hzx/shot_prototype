@@ -356,12 +356,6 @@ void Parser::parseBodyData(Request& request, string& source,
       pos = hpos + 1;
 
       request.file.isCreated = true;
-
-      // debug
-      std::cout << "[file created]" << std::endl;
-      std::cout << "file.name = " << request.file.name << std::endl;
-      std::cout << "file.filename = " << request.file.filename << std::endl;
-      std::cout << "file.path = " << request.file.path << std::endl;
     }
 
     // find close mark

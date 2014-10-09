@@ -33,6 +33,7 @@ public:
   string filename;
   // current working directory
   string directory;
+  // temprorary folder, used for request.files
   string tmp;
   string host;
   string cookieSecret;
