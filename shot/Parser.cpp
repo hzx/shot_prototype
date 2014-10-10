@@ -37,14 +37,10 @@ void Parser::parse(Request& request, string& source, size_t length) {
 void Parser::processHead(Request& request) {
   // get cookie from headers
   auto ci = request.headers.find(KL_COOKIE);
-  // cookie not supported or forgery, fuck off
-  if (ci == request.headers.end()) { 
-    setRequestBad(request);
-    return;
+  if (ci != request.headers.end()) { 
+    // parse cookie header value
+    parseCookie(request.cookie, ci->second);
   }
-
-  // parse cookie header value
-  parseCookie(request.cookie, ci->second);
 
   if (request.method != C_POST) return;
 
