@@ -94,19 +94,19 @@ bool Request::checkXsrf() {
 
 string Request::getHeader(const char* name) {
   auto it = headers.find(name);
-  return it != headers.end() ? it->second : "";
+  return it == headers.end() ? "" : it->second;
 }
 
 
 string Request::getCookie(const char* name) {
   auto it = cookie.find(name);
-  return it != cookie.end() ? it->second : "";
+  return it == cookie.end() ? "" : it->second;
 }
 
 
 string Request::getParam(const char* name) {
   auto it = params.find(name);
-  return it != params.end() ? it->second : "";
+  return it == params.end() ? "" : it->second;
 }
 
 
