@@ -269,6 +269,27 @@ string escape(const string& value) {
 }
 
 
+string escapeJsonString(const string& value) {
+  ostringstream buf;
+
+  for (auto c: value) {
+    switch (c) {
+      case '\\': buf << "\\\\"; break;
+      case '"': buf << "\\\""; break;
+      case '/': buf << "\\/"; break;
+      case '\b': buf << "\\b"; break;
+      case '\f': buf << "\\f"; break;
+      case '\n': buf << "\\n"; break;
+      case '\r': buf << "\\r"; break;
+      case '\t': buf << "\\t"; break;
+      default: buf << c; break;
+    }
+  };
+
+  return buf.str();
+}
+
+
 static const string base64_chars = 
 "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 "abcdefghijklmnopqrstuvwxyz"

@@ -30,6 +30,7 @@ void tolower(string& value);
 string encodeUrl(const string& value);
 string decodeUrl(const string& value);
 string escape(const string& value);
+string escapeJsonString(const string& value);
 /* string base64Encode(const char* value); */
 string base64_decode(string const& encoded_string);
 string base64_decode(string const& encoded_string);
