@@ -345,7 +345,6 @@ void Parser::parseBodyData(Request& request, string& source,
       }
 
       hpos = parseFileHeaders(request.file, source, bpos, right);
-      string ext = getExtension(request.file.filename);
       request.file.path = Config::instance().tmp + randomFilename(request.file.filename);
 
       // move position after headers and blank line to data
