@@ -109,9 +109,9 @@ int resizeThumb(string dest, string src, int width, int height) {
   int ih = image.size().height();
 
   // not resize small image
-  if (iw < width or ih < height) {
-    return IMAGE_ERROR_SMALLER;
-  }
+  /* if (iw < width or ih < height) { */
+  /*   return IMAGE_ERROR_SMALLER; */
+  /* } */
 
   // find new big size for resize
   int bw, bh;
