@@ -4,6 +4,9 @@ project(shot)
 include_directories($ENV{BOOST_ROOT})
 link_directories($ENV{BOOST_ROOT}/libs/program_options/src)
 
+#Magick++-config --cppflags --libs
+include_directories(/usr/include/ImageMagick)
+
 include_directories(${PROJECT_SOURCE_DIR})
 link_directories(${PROJECT_SOURCE_DIR}/shot)
 
@@ -18,9 +21,12 @@ link_directories(${MONGO_DIR}/src)
 
 set(CMAKE_CXX_COMPILER "clang++")
 set(CMAKE_CXX_FLAGS "-Wall -O2 -std=c++11")
+# openmp for g++
+#set(CMAKE_CXX_FLAGS "-Wall -O2 -std=c++11 -fopenmp")
 
 set(sources
   shot/utils.cpp
+  shot/image.cpp
   shot/translit.cpp
   shot/Config.cpp
   shot/url.cpp
@@ -51,6 +57,7 @@ set(test_sources
 add_library(${PROJECT_NAME} SHARED ${sources})
 #target_link_libraries(${PROJECT_NAME} mongoclient)
 target_link_libraries(${PROJECT_NAME}
+  Magick++ MagickCore
   boost_program_options
   boost_system
   boost_filesystem
