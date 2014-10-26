@@ -391,7 +391,7 @@ void Server::readSocket(int sock, std::ostream& buffer) {
   int count; // count read from socket
   char buf[Config::instance().chunkSize]; // buffer for socket
 
-  for (;;) {
+  for (int i = 0;;++i) {
     count = read(sock, (void*)buf, Config::instance().chunkSize);
 
     if (count <= 0) {
@@ -400,6 +400,10 @@ void Server::readSocket(int sock, std::ostream& buffer) {
       }
       break;
     }
+
+    // debug TODO: remove for if this not happen, and remove ostream, just
+    // char*
+    if (i >= 1) Logger::instance().write("readSocket i >= 1");
 
     /* std::cout.write(buf, count); */
     /* std::cout << std::endl; */
