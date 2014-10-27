@@ -5,11 +5,11 @@
 #include <fstream>
 #include <iterator>
 #include <cctype>
-#include "shot/Logger.h"
-#include "shot/Parser.h"
-#include "shot/Config.h"
-#include "shot/http.h"
-#include "shot/utils.h"
+#include "Logger.h"
+#include "Parser.h"
+#include "Config.h"
+#include "http.h"
+#include "utils.h"
 
 
 namespace shot {

@@ -20,12 +20,7 @@ public:
 
   static Filer& instance();
 
-  /* std::string load(const char* filename); */
   string loadCached(const char* filename);
-  void save(const char* filename, string& content);
-  /* std::string getHash(const char* filename); */
-
-  /* static bool exists(const char* filename); */
 
 private:
   // filename, content

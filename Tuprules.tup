@@ -1,0 +1,25 @@
+CC = clang++
+OPT += -Wall -O2 -std=c++11
+
+!cc = |> ^ cc %f^ $(CC) $(OPT) $(CFLAGS) -c %f -o %o |>
+!cclib = |> ^ cclib %f^ $(CC) $(OPT) $(CFLAGS) -fPIC -c %f -o %o |>
+!ar = |> ^ ar %o^ ar crs %o %f |>
+!lib = |> ^ lib %o^ $(CC) $(OPT) $(LFLAGS) -shared -o %o %f |>
+!ld = |> ^ ld %o^ $(CC) $(OPT) $(LFLAGS) -o %o %f |>
+
+
+GMOCK= /home/dem/build/gmock-1.7.0
+
+
+CFLAGS += -I$(TUP_CWD)/shot\
+-I/usr/include\
+-I/usr/include/ImageMagick\
+-I$(GMOCK)/include\
+-I$(GMOCK)/gtest/include
+
+
+LFLAGS += -L./shot\
+-L/usr/local/lib\
+-L$(GMOCK)/mybuild\
+-L$(GMOCK)/gtest/mybuild
+

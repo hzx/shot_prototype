@@ -1,6 +1,6 @@
-#include "shot/Config.h"
 #include <boost/program_options.hpp>
-#include "shot/utils.h"
+#include "Config.h"
+#include "utils.h"
 
 
 namespace po = boost::program_options;

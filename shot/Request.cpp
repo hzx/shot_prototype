@@ -3,11 +3,11 @@
 #include <iostream>
 #include <cstring>
 #include <cstdio>
-#include "shot/Request.h"
-#include "shot/Config.h"
-#include "shot/http.h"
-#include "shot/utils.h"
-#include "shot/Logger.h"
+#include "Request.h"
+#include "Config.h"
+#include "http.h"
+#include "utils.h"
+#include "Logger.h"
 
 
 using std::string;

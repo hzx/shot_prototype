@@ -1,6 +1,6 @@
-#include "shot/url.h"
-#include "shot/Config.h"
-#include "shot/utils.h"
+#include "url.h"
+#include "Config.h"
+#include "utils.h"
 
 
 namespace shot {

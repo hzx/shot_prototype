@@ -8,10 +8,10 @@
 #include <cstring>
 #include <iterator>
 #include <iostream>
-#include "shot/Server.h"
-#include "shot/Handler.h"
-#include "shot/http.h"
-#include "shot/system_handlers.h"
+#include "Server.h"
+#include "Handler.h"
+#include "http.h"
+#include "system_handlers.h"
 
 
 using std::ostringstream;

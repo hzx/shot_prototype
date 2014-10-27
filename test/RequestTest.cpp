@@ -1,6 +1,6 @@
 #include "gmock/gmock.h"
-#include "shot/Request.h"
-#include "shot/http.h"
+#include "Request.h"
+#include "http.h"
 using namespace testing;
 
 

@@ -3,8 +3,8 @@
 
 
 #include <string>
-#include "shot/HtmlTemplate.h"
-#include "shot/Handler.h"
+#include "HtmlTemplate.h"
+#include "Handler.h"
 
 
 using std::string;

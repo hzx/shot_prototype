@@ -2,8 +2,8 @@
 #define SHOT_SYSTEM_HANDLERS_H
 
 
-#include "shot/HtmlTemplate.h"
-#include "shot/Handler.h"
+#include "HtmlTemplate.h"
+#include "Handler.h"
 
 
 namespace shot {

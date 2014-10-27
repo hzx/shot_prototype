@@ -3,10 +3,10 @@
 #include <iterator>
 #include <iostream>
 #include <ctime>
-#include "shot/Handler.h"
-#include "shot/http.h"
-#include "shot/utils.h"
-#include "shot/Server.h"
+#include "Handler.h"
+#include "http.h"
+#include "utils.h"
+#include "Server.h"
 
 
 using std::string;

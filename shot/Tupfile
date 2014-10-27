@@ -1,0 +1,14 @@
+include_rules
+
+LIBS = \
+-lboost_program_options\
+-lboost_system\
+-lboost_filesystem\
+-lboost_thread\
+-lpthread\
+-lcrypto\
+-lmongoclient\
+-lMagick++ -lMagickCore
+
+: foreach *.cpp |> !cclib |> %B.o
+: *.o |> $(CC) -shared -Wl,-soname,%o $(LFLAGS) -o %o $(LIBS) %f |> libshot.so

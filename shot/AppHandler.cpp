@@ -1,7 +1,7 @@
-#include "shot/Config.h"
-#include "shot/Filer.h"
-#include "shot/utils.h"
-#include "shot/AppHandler.h"
+#include "Config.h"
+#include "Filer.h"
+#include "utils.h"
+#include "AppHandler.h"
 
 
 namespace shot {

@@ -14,8 +14,8 @@
 #include <unordered_map>
 #include <openssl/sha.h>
 #include <openssl/md5.h>
-#include <shot/http.h>
-#include "shot/utils.h"
+#include "http.h"
+#include "utils.h"
 
 
 using std::string;
@@ -70,7 +70,7 @@ string pathMd5(const char* filename) {
   MD5_CTX context;
   char buf[FILE_BUF_SIZE];
   unsigned char hash[MD5_DIGEST_LENGTH];
-  int count = 0;
+  size_t count = 0;
 
   // open file and check is exists
   std::ifstream inp(filename);
@@ -168,7 +168,7 @@ string getDirectory() {
 
 
 void makeDir(const string& path) {
-  int status = mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+  /*int status = */mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 }
 
 
@@ -452,7 +452,7 @@ string consumeField(const string& field) {
 
 
 string decodeSignedValue(const string& secret, const string& name,
-    const string& value, int maxAgeDays, time_t clock) {
+    const string& value, int maxAgeDays, time_t /*clock*/) {
   // parse version
   auto versionEnd = std::find(value.begin(), value.end(), '|');
   if (versionEnd == value.end()) {
@@ -556,7 +556,7 @@ string urandom(size_t n) {
 
   ostringstream res;
   res << std::hex << std::setfill('0');
-  for (int i = 0; i < n; ++i) {
+  for (size_t i = 0; i < n; ++i) {
     res << std::setw(2) << int((unsigned char)buf[i]);
   }
 

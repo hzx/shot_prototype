@@ -2,8 +2,8 @@
 #include <sstream>
 #include <cwctype>
 #include <locale>
-#include "shot/utils.h"
-#include "shot/translit.h"
+#include "utils.h"
+#include "translit.h"
 
 
 using std::wstring;

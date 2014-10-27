@@ -1,14 +1,14 @@
 #include <list>
 #include <cstring>
 #include <Magick++.h>
-#include "shot/image.h"
-#include "shot/utils.h"
+#include "image.h"
+#include "utils.h"
 
 
 namespace shot {
   
 
-int resizeImage(string dest, string src, int width, int height) {
+int resizeImage(string dest, string src, size_t width, size_t height) {
   // calculate size
 
   Magick::Image image;
@@ -30,7 +30,7 @@ int resizeImage(string dest, string src, int width, int height) {
 }
 
 
-int resizeGif(string dest, string src, int width, int height) {
+int resizeGif(string dest, string src, size_t width, size_t height) {
   std::list<Magick::Image> list; 
   Magick::readImages(&list, src);
 
@@ -49,7 +49,7 @@ int resizeGif(string dest, string src, int width, int height) {
 }
 
 
-int resizeSmart(string dest, string src, int width, int height) {
+int resizeSmart(string dest, string src, size_t width, size_t height) {
   string ext = getExtension(src);
 
   if (ext.length() == 3) {
@@ -63,7 +63,7 @@ int resizeSmart(string dest, string src, int width, int height) {
 }
 
 
-int resizeSmartBunch(string dest, string src, vector<int> sizes) {
+int resizeSmartBunch(string /*dest*/, string /*src*/, vector<size_t> /*sizes*/) {
   /* if (sizes.size() % 2 != 0) return IMAGE_ERROR_SIZES; */
 
   /* string ext = getExtension(src); */
@@ -95,7 +95,7 @@ int resizeSmartBunch(string dest, string src, vector<int> sizes) {
 }
 
 
-int resizeThumb(string dest, string src, int width, int height) {
+int resizeThumb(string dest, string src, size_t width, size_t height) {
   Magick::Image image;
 
   try {
@@ -105,8 +105,8 @@ int resizeThumb(string dest, string src, int width, int height) {
   }
 
   // image width and height
-  int iw = image.size().width();
-  int ih = image.size().height();
+  size_t iw = image.size().width();
+  size_t ih = image.size().height();
 
   // not resize small image
   /* if (iw < width or ih < height) { */
@@ -114,7 +114,7 @@ int resizeThumb(string dest, string src, int width, int height) {
   /* } */
 
   // find new big size for resize
-  int bw, bh;
+  size_t bw, bh;
 
   // image ratio
   float ir = static_cast<float>(iw) / static_cast<float>(ih);
@@ -136,8 +136,8 @@ int resizeThumb(string dest, string src, int width, int height) {
   image.resize(bs);
 
   // calculate crop offsets
-  int xoffset;
-  int yoffset;
+  size_t xoffset;
+  size_t yoffset;
   if (ir > tr) {
     xoffset = (bw - width) / 2;
     yoffset = 0;

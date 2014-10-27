@@ -1,8 +1,8 @@
 #include <sstream>
-#include "shot/http.h"
-#include "shot/utils.h"
-#include "shot/Config.h"
-#include "shot/Response.h"
+#include "http.h"
+#include "utils.h"
+#include "Config.h"
+#include "Response.h"
 
 
 using std::ostringstream;

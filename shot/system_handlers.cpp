@@ -1,10 +1,9 @@
-#include "shot/utils.h"
-#include "shot/Filer.h"
-#include "shot/Config.h"
-/* #include "shot/ResponseUtils.h" */
-#include "shot/http.h"
-#include "shot/system_handlers.h"
-#include "shot/Logger.h"
+#include "utils.h"
+#include "Filer.h"
+#include "Config.h"
+#include "http.h"
+#include "system_handlers.h"
+#include "Logger.h"
 
 
 using std::string;

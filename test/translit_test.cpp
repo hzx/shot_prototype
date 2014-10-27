@@ -1,5 +1,5 @@
 #include "gmock/gmock.h"
-#include "shot/translit.h"
+#include "translit.h"
 
 
 TEST(TranslitTest, toString) {

@@ -5,9 +5,9 @@
 #include <sstream>
 #include <algorithm>
 #include "gmock/gmock.h"
-#include "shot/Parser.h"
-#include "shot/Config.h"
-#include "shot/http.h"
+#include "Parser.h"
+#include "Config.h"
+#include "http.h"
 
 string sourceGet = R"(GET /d HTTP/1.1
 Host: localhost:8000

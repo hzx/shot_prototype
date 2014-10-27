@@ -4,8 +4,8 @@
 #include <algorithm>
 #include <iterator>
 #include <openssl/md5.h>
-#include "shot/utils.h"
-#include "shot/Filer.h"
+#include "utils.h"
+#include "Filer.h"
 
 
 namespace shot {
@@ -37,10 +37,6 @@ string Filer::loadCached(const char* filename) {
   }
 
   return iter->second;
-}
-
-
-void Filer::save(const char* filename, string& content) {
 }
 
 

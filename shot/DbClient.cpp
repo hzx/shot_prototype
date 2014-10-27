@@ -1,5 +1,5 @@
-#include "shot/Logger.h"
-#include "shot/DbClient.h"
+#include "Logger.h"
+#include "DbClient.h"
 
 
 using std::string;

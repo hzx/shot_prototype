@@ -23,11 +23,11 @@ const int IMAGE_ERROR_SMALLER = 3;
 // rationWidth - save ratio by width, real height not equal to height
 // or save ratio by height, real width not equal to width
 // return error code
-int resizeImage(string dest, string src, int width, int height);
-int resizeGif(string dest, string src, int width, int height);
-int resizeSmart(string dest, string src, int width, int height);
-int resizeSmartBunch(string dest, string src, vector<int> sizes);
-int resizeThumb(string dest, string src, int width, int height);
+int resizeImage(string dest, string src, size_t width, size_t height);
+int resizeGif(string dest, string src, size_t width, size_t height);
+int resizeSmart(string dest, string src, size_t width, size_t height);
+int resizeSmartBunch(string dest, string src, vector<size_t> sizes);
+int resizeThumb(string dest, string src, size_t width, size_t height);
 
 
 } /* namespace shot */

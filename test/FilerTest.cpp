@@ -1,8 +1,8 @@
 #include "gmock/gmock.h"
-#include "shot/Filer.h"
+#include "Filer.h"
 
 
 class FilerTest: public testing::Test {
 public:
-  Filer filer;
+  shot::Filer filer;
 };

@@ -1,5 +1,5 @@
 #include "gmock/gmock.h"
-#include "shot/Server.h"
+#include "Server.h"
 using namespace testing;
 
 

@@ -3,8 +3,8 @@
 
 
 #include <memory>
-#include "shot/Request.h"
-#include "shot/Response.h"
+#include "Request.h"
+#include "Response.h"
 
 
 namespace shot {

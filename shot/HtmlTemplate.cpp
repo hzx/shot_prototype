@@ -1,7 +1,7 @@
 #include <sstream>
 #include <algorithm>
 #include <iterator>
-#include "shot/HtmlTemplate.h"
+#include "HtmlTemplate.h"
 
 
 namespace shot {

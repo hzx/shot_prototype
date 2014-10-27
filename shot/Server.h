@@ -4,11 +4,11 @@
 #include <string>
 #include <unordered_map>
 #include <memory>
-#include "shot/Logger.h"
-#include "shot/Config.h"
-#include "shot/Request.h"
-#include "shot/Parser.h"
-#include "shot/Handler.h"
+#include "Logger.h"
+#include "Config.h"
+#include "Request.h"
+#include "Parser.h"
+#include "Handler.h"
 
 
 using std::string;
@@ -23,7 +23,7 @@ typedef unordered_map<string, type_factory> type_factories;
 
 
 template<class T>
-Handler* factory(Request* request) {
+Handler* factory(Request* /*request*/) {
   return new T();
 }
 

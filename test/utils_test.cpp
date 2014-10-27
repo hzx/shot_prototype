@@ -1,5 +1,5 @@
 #include "gmock/gmock.h"
-#include "shot/utils.h"
+#include "utils.h"
 
 
 using std::string;
