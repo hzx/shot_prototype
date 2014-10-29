@@ -4,7 +4,8 @@
 
 #include <string>
 #include <vector>
-#include "mongo/client/dbclient.h"
+#include <mongo/bson/bson.h>
+#include <mongo/client/dbclient.h>
 
 
 using std::string;

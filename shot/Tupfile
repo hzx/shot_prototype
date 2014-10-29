@@ -10,5 +10,7 @@ LIBS = \
 -lmongoclient\
 -lMagick++ -lMagickCore
 
-: foreach *.cpp |> !cclib |> %B.o
-: *.o |> $(CC) -shared -Wl,-soname,%o $(LFLAGS) -o %o $(LIBS) %f |> libshot.so
+#`Magick++-config --libs`
+
+: foreach *.cpp |> !cclib |> %B.o {objs}
+: {objs} |> $(CC) -shared -Wl,-soname,%o $(LFLAGS) -o %o $(LIBS) %f |> lib%d.so
