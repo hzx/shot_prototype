@@ -82,6 +82,9 @@ const char HTTP_STATUS_405[] = "HTTP/1.1 405 Method Not Allowed\n";
 const char HTTP_STATUS_406[] = "HTTP/1.1 406 Not Acceptable\n";
 const char HTTP_STATUS_500[] = "HTTP/1.1 500 Internal Server Error\n";
 
+const char DELIM_ROW[] = "\u0001";
+const char DELIM_FIELD[] = "\u0002";
+
 
 } /* namespace shot */
 
