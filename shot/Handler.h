@@ -30,8 +30,6 @@ public:
   void setError(int status, string message);
   void redirectPermanently(string location);
   void redirectTemporarily(string location);
-  void write(const char* txt);
-  void write(std::string txt);
   void flush();
 
   int socket;

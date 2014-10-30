@@ -10,14 +10,13 @@ namespace shot {
 AppTemplate::AppTemplate(string title, string css, string js) {
   // add noscript redirect
   // inline css, js
-  head.push_back(
+  head <<
     "<noscript>"
     "<meta http-equiv=\"refresh\" content=\"0;url=/noscript\"/>"
     "</noscript>"
-    "<title>" + title + "</title>"
-    "<style type=\"text/css\">" + css + "</style>"
-    "<script type=\"text/javascript\">" + js + "</script>"
-  );
+    "<title>" << title << "</title>"
+    "<style type=\"text/css\">" << css << "</style>"
+    "<script type=\"text/javascript\">" << js << "</script>";
 }
 
 
@@ -27,7 +26,7 @@ void AppHandler::appGet(string title, string cssfilename, string jsfilename) {
 
   if (!shot::pathExists(cssabs.c_str()) ||
       !shot::pathExists(jsabs.c_str())) {
-    write("Что-то не нашел на сервере.");
+    response.content << "Что-то не нашел на сервере.";
     return;
   }
 
@@ -37,7 +36,7 @@ void AppHandler::appGet(string title, string cssfilename, string jsfilename) {
   AppTemplate templ(title, css, js);
 
   response.setHtmlHeader();
-  write(templ.toString());
+  response.content << templ.toString();
 }
 
 

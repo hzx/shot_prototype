@@ -32,28 +32,28 @@ Handler::~Handler() {
 void Handler::get() {
   response.status = HTTP_406;
   response.setTextHeader();
-  write("Ошибка 406");
+  response.content << "Ошибка 406";
 }
 
 
 void Handler::xget() {
   response.status = HTTP_406;
-  response.setJsonHeader();
-  write("{\"message\":\"Ошибка 406\"}");
+  response.setTextHeader();
+  response.content << "Ошибка 406";
 }
 
 
 void Handler::post() {
   response.status = HTTP_406;
   response.setTextHeader();
-  write("Ошибка 406");
+  response.content << "Ошибка 406";
 }
 
 
 void Handler::xpost() {
   response.status = HTTP_406;
-  response.setJsonHeader();
-  write("{\"message\":\"Ошибка 406\"}");
+  response.setTextHeader();
+  response.content << "Ошибка 406";
 }
 
 
@@ -92,11 +92,12 @@ void Handler::redirectPermanently(string location) {
   response.status = HTTP_301;
   response.setHeader(K_LOCATION, location.data());
   if (request->isXhr()) {
-    response.setJsonHeader();
-    write("{\"message\":\"Страница перемещена по адресу " + location +"\"}");
+    response.setTextHeader();
+    response.content << "Страница перемещена по адресу " << location;
   } else {
     response.setHtmlHeader();
-    write("<p>Страница перемещена по адресу <a href=\"" + location + "\">" + location + "</a></p>");
+    response.content << "<p>Страница перемещена по адресу <a href=\"" <<
+      location << "\">" << location << "</a></p>";
   }
 }
 
@@ -105,22 +106,13 @@ void Handler::redirectTemporarily(string location) {
   response.status = HTTP_302;
   response.setHeader(K_LOCATION, location.data());
   if (request->isXhr()) {
-    response.setJsonHeader();
-    write("{\"message\":\"Страница перемещена по адресу " + location +"\"}");
+    response.setTextHeader();
+    response.content << "Страница перемещена по адресу " << location;
   } else {
     response.setHtmlHeader();
-    write("<p>Страница перемещена по адресу <a href=\"" + location + "\">" + location + "</a></p>");
+    response.content << "<p>Страница перемещена по адресу <a href=\"" <<
+      location << "\">" << location << "</a></p>";
   }
-}
-
-
-void Handler::write(const char* txt) {
-  response.content.push_back(txt);
-}
-
-
-void Handler::write(std::string txt) {
-  response.content.push_back(txt);
 }
 
 

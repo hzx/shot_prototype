@@ -12,15 +12,9 @@ std::string SitemapIndexTemplate::toString() {
 
   buf <<
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-    "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">"
-  ;
-
-  std::copy(content.begin(), content.end(),
-      std::ostream_iterator<std::string>(buf));
-
-  buf <<
-    "</sitemapindex>"
-  ;
+    "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">" <<
+    content.str() <<
+    "</sitemapindex>";
 
   return buf.str();
 }
@@ -32,16 +26,10 @@ void SitemapIndexTemplate::setPrefix(const char* url) {
 
 
 void SitemapIndexTemplate::write(const char* url) {
-  write(std::string(url));
-}
-
-
-void SitemapIndexTemplate::write(const std::string& url) {
-  content.push_back(
+  content <<
     "<sitemap>"
-      "<loc>" + prefix + url + "</loc>"
-    "</sitemap>"
-  );
+      "<loc>" << prefix << url << "</loc>"
+    "</sitemap>";
 }
 
 
@@ -50,15 +38,9 @@ std::string SitemapUrlsetTemplate::toString() {
 
   buf <<
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-    "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">"
-  ;
-
-  std::copy(content.begin(), content.end(),
-      std::ostream_iterator<std::string>(buf));
-
-  buf <<
-    "</urlset>"
-  ;
+    "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">" <<
+    content.str() <<
+    "</urlset>";
 
   return buf.str();
 }
@@ -70,16 +52,10 @@ void SitemapUrlsetTemplate::setPrefix(const char* url) {
 
 
 void SitemapUrlsetTemplate::write(const char* url) {
-  write(std::string(url));
-}
-
-
-void SitemapUrlsetTemplate::write(const std::string& url) {
-  content.push_back(
+  content <<
     "<url>"
-      "<loc>" + prefix + url + "</loc>"
-    "</url>"
-  );
+      "<loc>" << prefix << url << "</loc>"
+    "</url>";
 }
 
   

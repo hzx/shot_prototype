@@ -4,6 +4,7 @@
 
 #include <string>
 #include <vector>
+#include <sstream>
 
 
 namespace shot {
@@ -14,10 +15,8 @@ public:
   std::string toString();
   void setPrefix(const char* url);
   void write(const char* url);
-  void write(const std::string& url);
-private:
   std::string prefix;
-  std::vector<std::string> content;
+  std::ostringstream content;
 };
 
 
@@ -26,10 +25,8 @@ public:
   std::string toString();
   void setPrefix(const char* url);
   void write(const char* url);
-  void write(const std::string& url);
-private:
   std::string prefix;
-  std::vector<std::string> content;
+  std::ostringstream content;
 };
 
   

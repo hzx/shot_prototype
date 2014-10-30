@@ -35,7 +35,8 @@ void StaticHandler::staticGet() {
     response.setHeader(K_CONTENT_TYPE, extHeader.data());
   }
 
-  write(Filer::instance().loadCached(filename.c_str()));
+
+  response.content << Filer::instance().loadCached(filename.c_str());
 }
 
 
@@ -65,19 +66,16 @@ NoscriptTemplate::NoscriptTemplate() {
   lang = "ru";
   title = "Браузер не поддерживает javascript или javascript отключен";
 
-  writeHead(
-  "<title>Браузер не поддерживает javascript или javascript отключен</title>"
-  );
-
-  write(
+  head << 
+    "<title>Браузер не поддерживает javascript или javascript отключен</title>";
+  body <<
   "<h1>Браузер не поддерживает javascript или javascript отключен</h1>"
   "<p>Для нормальной работы с сайтом требуется включить javascript или установить браузер, который его поддерживает</p>"
   "<p>"
     "<p><a href=\"http://www.google.com/chrome\">Chrome</a></p>"
     "<p><a href=\"http://www.mozilla.org/firefox\">Firefox</a></p>"
     "<p><a href=\"http://www.opera.com\">Opera</a></p>"
-  "</p>"
-  );
+  "</p>";
 }
 
 
@@ -85,7 +83,7 @@ void NoscriptHandler::get() {
   NoscriptTemplate templ;
 
   response.setHtmlHeader();
-  write(templ.toString());
+  response.content << templ.toString();
 }
 
 
@@ -115,13 +113,8 @@ void RedirectHandler::xpost() {
 
 
 E400Template::E400Template() {
-  writeHead(
-  "<title>Ошибка 400. Неверный запрос</title>"
-  );
-
-  write(
-  "<h1>Ошибка 400. Неверный запрос</h1>"
-  );
+  head << "<title>Ошибка 400. Неверный запрос</title>";
+  body << "<h1>Ошибка 400. Неверный запрос</h1>";
 }
 
 
@@ -134,26 +127,19 @@ void E400Handler::get() {
   E404Template templ;
 
   response.setHtmlHeader();
-  write(templ.toString());
+  response.content << templ.toString();
 }
 
 
 void E400Handler::xget() {
-  response.setJsonHeader();
-  write(
-  "{\"message\":\"Ошибка 400. Неверный запрос. " + response.error + "\"}"
-  );
+  response.setTextHeader();
+  response.content << "Ошибка 400. Неверный запрос. " + response.error;
 }
 
 
 E403Template::E403Template() {
-  writeHead(
-  "<title>Ошибка 403. В доступе отказано</title>"
-  );
-
-  write(
-  "<h1>Ошибка 403. В доступе отказано</h1>"
-  );
+  head << "<title>Ошибка 403. В доступе отказано</title>";
+  body << "<h1>Ошибка 403. В доступе отказано</h1>";
 }
 
 
@@ -166,33 +152,23 @@ void E403Handler::get() {
   E403Template templ;
 
   if (!response.error.empty()) {
-    write(
-    "<p>" + response.error + "</p>"
-    );
+    response.content << "<p>" << response.error << "</p>";
   }
 
   response.setHtmlHeader();
-  write(templ.toString());
+  response.content << templ.toString();
 }
 
 
 void E403Handler::xget() {
-  response.setJsonHeader();
-  write(
-    string("{\"message\":\"Ошибка 403. В доступе отказано. ") +
-    response.error + "\"}"
-  );
+  response.setTextHeader();
+  response.content << "Ошибка 403. В доступе отказано. " << response.error;
 }
 
 
 E404Template::E404Template() {
-  writeHead(
-  "<title>Ошибка 404. Страница не найдена</title>"
-  );
-
-  write(
-  "<h1>Ошибка 404. Страница не найдена</h1>"
-  );
+  head << "<title>Ошибка 404. Страница не найдена</title>";
+  body << "<h1>Ошибка 404. Страница не найдена</h1>";
 }
 
 
@@ -205,27 +181,20 @@ void E404Handler::get() {
   E404Template templ;
 
   response.setHtmlHeader();
-  write(templ.toString());
+  response.content << templ.toString();
 }
 
 
 void E404Handler::xget() {
-  response.setJsonHeader();
-  write(
-  "{\"message\":\"Ошибка 404. Страница не найдена. " + response.error + "\"}"
-  );
+  response.setTextHeader();
+  response.content << "Ошибка 404. Страница не найдена. " + response.error;
 }
 
 
 E500Template::E500Template() {
-  writeHead(
-  "<title>Ошибка 500. Что-то пошло не так.</title>"
-  );
-
-  write(
-  "<h1>Ошибка 500. Что-то пошло не так.</h1>"\
-  "<p>Обратитесь к разработчику</p>"
-  );
+  head << "<title>Ошибка 500. Что-то пошло не так.</title>";
+  body << "<h1>Ошибка 500. Что-то пошло не так.</h1>"
+    "<p>Обратитесь к разработчику</p>";
 }
 
 
@@ -238,15 +207,13 @@ void E500Handler::get() {
   E500Template templ;
 
   response.setHtmlHeader();
-  write(templ.toString());
+  response.content << templ.toString();
 }
 
 
 void E500Handler::xget() {
-  response.setJsonHeader();
-  write(
-  "{\"message\":\"Ошибка 500. Что-то пошло не так.\"}"
-  );
+  response.setTextHeader();
+  response.content << "Ошибка 500. Что-то пошло не так.";
 }
 
 

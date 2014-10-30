@@ -199,7 +199,7 @@ void Server::run() {
           }
 
           // check handler status and replace by system handler
-          if (handler->response.content.empty() and
+          if (/*handler->response.content.rdbuf()->in_avail() == 0 and*/
               handler->response.status >= 400 and
               handler->response.status < 600) {
 
@@ -247,8 +247,10 @@ void Server::run() {
             }
           }
 
+          std::cout << "response.content.eof:  " << handler->response.content.eof() << std::endl;
+
           // flush handler, only with content
-          if (handler and !handler->response.content.empty()) {
+          if (handler and handler->response.flush) {
             flushHandler(handler);
           }
         }

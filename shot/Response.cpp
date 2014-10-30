@@ -12,7 +12,8 @@ namespace shot {
 
 
 Response::Response()
-    : status(HTTP_200) {
+    : status(HTTP_200)
+    , flush(true) {
 }
 
 
@@ -50,10 +51,11 @@ string Response::toString() {
   }
 
   // calculate content length - content total length
-  int contentLength = 0;
-  for (auto it = content.begin(); it != content.end(); ++it) {
-    contentLength += it->length();
-  }
+  string contentString = content.str();
+  int contentLength = contentString.length();
+  /* for (auto it = content.begin(); it != content.end(); ++it) { */
+  /*   contentLength += it->length(); */
+  /* } */
   // add Content-length header
   buf << K_CONTENT_LENGTH_COLON << std::to_string(contentLength) << '\n';
 
@@ -73,9 +75,10 @@ string Response::toString() {
   buf << '\n';
 
   // add body content
-  for (auto it = content.begin(); it != content.end(); ++it) {
-    buf << *it;
-  }
+  buf << contentString;
+  /* for (auto it = content.begin(); it != content.end(); ++it) { */
+  /*   buf << *it; */
+  /* } */
 
   return buf.str();
 }

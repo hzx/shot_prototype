@@ -4,6 +4,7 @@
 
 #include <string>
 #include <vector>
+#include <sstream>
 
 
 namespace shot {
@@ -13,16 +14,12 @@ class HtmlTemplate {
 public:
   HtmlTemplate();
   std::string toString();
-  void writeHead(const char* txt);
-  void writeHead(const std::string& txt);
-  // writeBody
-  void write(const char* txt);
-  void write(const std::string& txt);
 
   std::string lang;
   std::string title;
-  std::vector<std::string> head;
-  std::vector<std::string> body;
+
+  std::ostringstream head;
+  std::ostringstream body;
 };
 
 

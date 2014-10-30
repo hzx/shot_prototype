@@ -5,11 +5,13 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include <sstream>
 
 
 using std::string;
 using std::vector;
 using std::unordered_map;
+using std::ostringstream;
 
 
 namespace shot {
@@ -33,8 +35,10 @@ public:
   unordered_map<string, string> headers;
   unordered_map<string, string> cookie;
   size_t contentLength;
-  vector<string> content;
+  /* vector<string> content; */
+  ostringstream content;
   string error;
+  bool flush;
 };
 
   
