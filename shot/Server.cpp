@@ -25,6 +25,7 @@ Server::Server()
     , factory400(factory<E400Handler>)
     , factory403(factory<E403Handler>)
     , factory404(factory<E404Handler>)
+    , factory406(factory<E406Handler>)
     , factory500(factory<E500Handler>) {
 }
 
@@ -223,6 +224,9 @@ void Server::run() {
               case HTTP_404:
                 handler = factory404(request);
                 break;
+              case HTTP_406:
+                handler = factory406(request);
+                break;
               case HTTP_500:
                 handler = factory500(request);
                 break;
@@ -246,8 +250,6 @@ void Server::run() {
               }
             }
           }
-
-          std::cout << "response.content.eof:  " << handler->response.content.eof() << std::endl;
 
           // flush handler, only with content
           if (handler and handler->response.flush) {

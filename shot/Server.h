@@ -42,6 +42,7 @@ public:
   void setFactory400(type_factory factory);
   void setFactory403(type_factory factory);
   void setFactory404(type_factory factory);
+  void setFactory406(type_factory factory);
   void setFactory500(type_factory factory);
 
   void flushHandler(Handler* handler);
@@ -59,6 +60,7 @@ private:
   type_factory factory400;
   type_factory factory403;
   type_factory factory404;
+  type_factory factory406;
   type_factory factory500;
 
   unordered_map<string, string> extHeaders;

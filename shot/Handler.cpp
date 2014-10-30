@@ -31,29 +31,21 @@ Handler::~Handler() {
 
 void Handler::get() {
   response.status = HTTP_406;
-  response.setTextHeader();
-  response.content << "Ошибка 406";
 }
 
 
 void Handler::xget() {
   response.status = HTTP_406;
-  response.setTextHeader();
-  response.content << "Ошибка 406";
 }
 
 
 void Handler::post() {
   response.status = HTTP_406;
-  response.setTextHeader();
-  response.content << "Ошибка 406";
 }
 
 
 void Handler::xpost() {
   response.status = HTTP_406;
-  response.setTextHeader();
-  response.content << "Ошибка 406";
 }
 
 

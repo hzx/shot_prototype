@@ -191,6 +191,31 @@ void E404Handler::xget() {
 }
 
 
+E406Template::E406Template() {
+  head << "<title>Ошибка 406. Недопустимый запрос</title>";
+  body << "<h1>Ошибка 406. Недопустимый запрос</h1>";
+}
+
+
+E406Handler::E406Handler() {
+  response.status = HTTP_406;
+}
+
+
+void E406Handler::get() {
+  E406Template templ;
+
+  response.setHtmlHeader();
+  response.content << templ.toString();
+}
+
+
+void E406Handler::xget() {
+  response.setTextHeader();
+  response.content << "Ошибка 406. Недопустимый запрос";
+}
+
+
 E500Template::E500Template() {
   head << "<title>Ошибка 500. Что-то пошло не так.</title>";
   body << "<h1>Ошибка 500. Что-то пошло не так.</h1>"

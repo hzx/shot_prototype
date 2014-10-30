@@ -95,6 +95,20 @@ public:
 };
 
 
+class E406Template: public HtmlTemplate {
+public:
+  E406Template();
+};
+
+
+class E406Handler: public Handler {
+public:
+  E406Handler();
+  void get();
+  void xget();
+};
+
+
 class E500Template: public HtmlTemplate {
 public:
   E500Template();

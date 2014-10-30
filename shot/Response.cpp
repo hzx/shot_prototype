@@ -109,6 +109,11 @@ void Response::setJsonHeader() {
 }
 
 
+void Response::setStreamHeader() {
+  headers.insert({K_CONTENT_TYPE, V_OCTET_STREAM});
+}
+
+
 void Response::setCookie(const char* name, const char* value, int expiresDays) {
   ostringstream buf;
 

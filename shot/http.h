@@ -47,6 +47,7 @@ const char V_XML_UTF8[] = "text/xml;charset=UTF-8";
 const char V_CSS_UTF8[] = "text/css;charset=UTF-8";
 const char V_JS_UTF8[] = "text/javascript;charset=UTF-8";
 const char V_JSON_UTF8[] = "application/json;charset=UTF-8";
+const char V_OCTET_STREAM[] = "application/octet-stream";
 const char V_IMAGE_JPEG[] = "image/jpeg";
 const char V_IMAGE_PNG[] = "image/png";
 const char V_IMAGE_GIF[] = "image/gif";

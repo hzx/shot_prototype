@@ -26,6 +26,7 @@ public:
   void setHtmlHeader();
   void setXmlHeader();
   void setJsonHeader();
+  void setStreamHeader();
   void setCookie(const char* name, const char* value, int expiresDays = 30);
   void setSecureCookie(const char* name, const char* value, int expiresDays = 30);
   void clearCookie(const char* name);
