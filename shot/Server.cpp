@@ -391,11 +391,14 @@ void Server::flushHandler(Handler* handler) {
 
 
 // TODO: rewrite this without loop and to char buf[]
+// split by two methods, read to buffer (for GET) and read to ostream (for POST)
 void Server::readSocket(int sock, std::ostream& buffer) {
   int count; // count read from socket
   char buf[Config::instance().chunkSize]; // buffer for socket
+  size_t counter = 0;
+  size_t total = 0;
 
-  for (int i = 0;;++i) {
+  for (int i = 0; ; ++i) {
     count = read(sock, (void*)buf, Config::instance().chunkSize);
 
     if (count <= 0) {
@@ -405,16 +408,17 @@ void Server::readSocket(int sock, std::ostream& buffer) {
       break;
     }
 
-    // debug TODO: remove for if this not happen, and remove ostream, just
-    // char*
-    if (i >= 1) Logger::instance().write("readSocket i >= 1");
-
-    /* std::cout.write(buf, count); */
-    /* std::cout << std::endl; */
-
+    ++counter;
+    total += count;
     buffer.write(buf, count);
   }
 
+  // debug TODO: remove for if this not happen, and remove ostream, just
+  // char*
+  if (counter > 1) {
+    Logger::instance().write("readSocket counter " + std::to_string(counter));
+    Logger::instance().write("readSocket total " + std::to_string(total));
+  }
 }
 
 void Server::writeSocket(int sock, const char* buf, int size) {
