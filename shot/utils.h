@@ -33,7 +33,6 @@ string escape(const string& value);
 string escapeJsonString(const string& value);
 /* string base64Encode(const char* value); */
 string base64_decode(string const& encoded_string);
-string base64_decode(string const& encoded_string);
 string createSignature(const string& secret, const string& toSign);
 
 string createSignedValue(const string& secret,

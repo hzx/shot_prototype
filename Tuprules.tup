@@ -13,5 +13,5 @@ CFLAGS += -I$(TUP_CWD)/shot\
 
 #`Magick++-config --cppflags`
 
-LFLAGS += -L./shot\
+LFLAGS += -L$(TUP_CWD)/shot\
 -L/usr/local/lib

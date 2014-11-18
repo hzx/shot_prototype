@@ -3,9 +3,11 @@
 
 
 #include <string>
+#include <vector>
 
 
 using std::string;
+using std::vector;
 
 
 namespace shot {
@@ -13,7 +15,10 @@ namespace shot {
 
 class Model {
 public:
-  virtual string toJsonString() = 0;
+  virtual string serializeValue() = 0;
+  virtual string serialize() = 0;
+  virtual string unserializeValue() = 0;
+  virtual string unserialize() = 0;
 };
 
   
