@@ -1,6 +1,6 @@
 include_rules
 
-LIBS = \
+LIBS += \
 -lboost_program_options\
 -lboost_system\
 -lboost_filesystem\
@@ -12,5 +12,7 @@ LIBS = \
 
 #`Magick++-config --libs`
 
-: foreach *.cpp |> !cclib |> %B.o {objs}
-: {objs} |> $(CC) -shared -Wl,-soname,%o $(LFLAGS) -o %o $(LIBS) %f |> lib%d.so
+: foreach *.cpp |> !ccp |> {objs}
+: {objs} |> !lib |>
+
+#: {objs} |> $(CC) -shared -Wl,-soname,%o $(LFLAGS) -o %o $(LIBS) %f |> lib%d.so

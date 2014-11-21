@@ -26,13 +26,11 @@ int const SYNC_OP_MOVE = 5;
 class SyncHandler: public Handler {
 public:
   void xpost();
-
   void opUpdate();
   void opInsert();
   void opAppend();
   void opRemove();
   void opMove();
-  void xpost();
 };
 
   
