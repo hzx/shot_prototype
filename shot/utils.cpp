@@ -700,20 +700,21 @@ string unquote(string& source) {
 vector<string> parseGeneric(string const& src, const char delim) {
   vector<string> items = {};
 
-  size_t begin = 0;
   size_t length = src.length();
-  size_t pos = 0;
+  size_t left = 0;
+  size_t right = 0;
 
-  for (; pos < length; ++pos) {
-    if (src[pos] == delim) {
-      items.push_back(src.substr(begin, pos - begin));
+  for (; right < length; ++right) {
+    if (src[right] == delim and right - left > 0) {
+      items.push_back(src.substr(left, right - left));
+      left = right + 1; // move begin after delim
     }
   }
 
   // add last field
-  if (length > 0) {
-    string item = src.substr(begin, pos - begin);
-    if (item.length() > 0) items.push_back(item);
+  if (length > 0 and length - left > 0) {
+    string item = src.substr(left, length - left);
+    items.push_back(item);
   }
 
   return items;
