@@ -696,4 +696,38 @@ string unquote(string& source) {
 }
 
 
+// split src by delim
+vector<string> parseGeneric(string const& src, const char delim) {
+  vector<string> items = {};
+
+  size_t begin = 0;
+  size_t length = src.length();
+  size_t pos = 0;
+
+  for (; pos < length; ++pos) {
+    if (src[pos] == delim) {
+      items.push_back(src.substr(begin, pos - begin));
+    }
+  }
+
+  // add last field
+  if (length > 0) {
+    string item = src.substr(begin, pos - begin);
+    if (item.length() > 0) items.push_back(item);
+  }
+
+  return items;
+}
+
+
+vector<string> parseRows(string const& src) {
+  return parseGeneric(src, DELIM_ROW);
+}
+
+
+vector<string> parseFields(string const& src) {
+  return parseGeneric(src, DELIM_FIELD);
+}
+
+
 } /* namespace shot */

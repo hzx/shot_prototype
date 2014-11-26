@@ -64,6 +64,9 @@ string createSalt();
 string encodePassword(const string& raw);
 bool checkPassword(const string& raw, const string& encoded);
 string unquote(string& source);
+vector<string> parseGeneric(string const& src, const char delim);
+vector<string> parseRows(string const& src);
+vector<string> parseFields(string const& src);
 
   
 } /* namespace shot */

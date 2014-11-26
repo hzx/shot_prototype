@@ -2,6 +2,7 @@
 #define SHOT_MODEL_H
 
 
+#include <ostream>
 #include <string>
 #include <vector>
 
@@ -15,10 +16,10 @@ namespace shot {
 
 class Model {
 public:
-  virtual string serializeValue() = 0;
-  virtual string serialize() = 0;
-  virtual string unserializeValue() = 0;
-  virtual string unserialize() = 0;
+  virtual int parseField(int code, string const& value) = 0;
+  virtual void storeField(std::ostream& b, int code) = 0;
+  string toString(vector<int> codes);
+  int fromString(string const& src);
 };
 
   
