@@ -27,10 +27,6 @@ int Model::fromString(string const& src) {
   auto fields = parseFields(src);
   size_t size = fields.size();
 
-  std::cout << "Model, fields.size: " << size << std::endl;
-  for (auto f: fields)
-    std::cout << f << std::endl;
-
   // check even size (name, value)
   if (size % 2 != 0) return -1;
 
