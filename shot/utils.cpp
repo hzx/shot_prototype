@@ -701,11 +701,11 @@ vector<string> parseGeneric(string const& src, const char delim) {
   vector<string> items = {};
 
   size_t length = src.length();
-  size_t left = 0;
-  size_t right = 0;
+  int left = 0;
+  int right = 0;
 
   for (; right < length; ++right) {
-    if (src[right] == delim and right - left > 0) {
+    if (src[right] == delim and right - left >= 0) {
       items.push_back(src.substr(left, right - left));
       left = right + 1; // move begin after delim
     }
