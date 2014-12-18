@@ -67,6 +67,10 @@ string unquote(string& source);
 vector<string> parseGeneric(string const& src, const char delim);
 vector<string> parseRows(string const& src);
 vector<string> parseFields(string const& src);
+void insertItem(string& items, string& beforeId, string& id);
+void appendItem(string& items, string& id);
+void removeItem(string& items, string& id);
+void moveItem(string& items, string& beforeId, string& id);
 
   
 } /* namespace shot */

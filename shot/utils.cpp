@@ -731,4 +731,80 @@ vector<string> parseFields(string const& src) {
 }
 
 
+void insertItem(string& items, string& beforeId, string& id) {
+  if (beforeId.empty()) {
+    appendItem(items, id);
+    return;
+  }
+
+  // split items by :
+  auto ids = parseGeneric(items, ':');
+
+  vector<string> filtered;
+  for (size_t i = 0, size = ids.size(); i < size; ++i) {
+    if (ids[i] == beforeId) {
+      filtered.push_back(id);
+    }
+    filtered.push_back(ids[i]);
+  }
+
+  // join buf
+  ostringstream result;
+  // put first
+  if (filtered.size() > 0) result << filtered[0];
+  for (size_t i = 1, size = filtered.size(); i < size; ++i) {
+    result << ':' << filtered[i];
+  }
+
+  items = result.str();
+}
+
+
+void appendItem(string& items, string& id) {
+  if (items.empty()) items = id;
+  else items = items + ':' + id;
+}
+
+
+void removeItem(string& items, string& id) {
+  auto ids = parseGeneric(items, ':');
+
+  vector<string> filtered;
+  for (size_t i = 0, size = ids.size(); i < size; ++i) {
+    if (ids[i] != id) 
+      filtered.push_back(ids[i]);
+  }
+
+  ostringstream result;
+  if (filtered.size() > 0) result << filtered[0];
+  for (size_t i = 1, size = filtered.size(); i < size; ++i) {
+    result << ':' << filtered[i];
+  }
+
+  items = result.str();
+}
+
+
+void moveItem(string& items, string& beforeId, string& id) {
+  auto ids = parseGeneric(items, ':');
+
+  vector<string> filtered;
+  for (size_t i = 0, size = ids.size(); i < size; ++i) {
+    if (ids[i] == beforeId) {
+      filtered.push_back(id);
+    }
+    if (ids[i] != id)
+      filtered.push_back(ids[i]);
+  }
+
+  ostringstream result;
+  if (filtered.size() > 0) result << filtered[0];
+  for (size_t i = 1, size = filtered.size(); i < size; ++i) {
+    result << ':' << filtered[i];
+  }
+
+  items = result.str();
+}
+
+
 } /* namespace shot */
