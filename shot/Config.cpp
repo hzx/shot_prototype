@@ -41,6 +41,7 @@ int Config::parseCmd(int argc, const char* argv[]) {
       ("help", "produce help message")
       ("port", po::value<int>(), "listen port")
       ("host", po::value<std::string>(), "site domain")
+      ("static", po::value<std::string>(), "static directory")
       /* ("config", po::value<>(), "config filename") */
       ;
 
@@ -54,6 +55,13 @@ int Config::parseCmd(int argc, const char* argv[]) {
     if (vm.count("host")) {
       host = vm["host"].as<std::string>();
     }
+    if (vm.count("static")) {
+      staticDir = vm["static"].as<std::string>();
+    } else {
+      staticDir = directory + "/static";
+    }
+    imgDir = staticDir + "/img";
+    dataDir = staticDir + "/data";
   } catch (std::exception& e) {
     return -1;
   } catch (...) {

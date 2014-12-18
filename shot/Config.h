@@ -33,6 +33,10 @@ public:
   string filename;
   // current working directory
   string directory;
+  // static directory
+  string staticDir;
+  string imgDir;
+  string dataDir;
   // temprorary folder, used for request.files
   string tmp;
   string host;
