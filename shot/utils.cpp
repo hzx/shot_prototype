@@ -700,7 +700,7 @@ string unquote(string& source) {
 vector<string> parseGeneric(string const& src, const char delim) {
   vector<string> items = {};
 
-  size_t length = src.length();
+  int length = src.length();
   int left = 0;
   int right = 0;
 
@@ -712,7 +712,7 @@ vector<string> parseGeneric(string const& src, const char delim) {
   }
 
   // add last field
-  if (length > 0 and length - left > 0) {
+  if (length > 0 and length - left >= 0) {
     string item = src.substr(left, length - left);
     items.push_back(item);
   }

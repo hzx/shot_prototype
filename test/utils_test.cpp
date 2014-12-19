@@ -167,3 +167,13 @@ TEST(ShotUtils, unquote) {
 
   ASSERT_THAT(shot::unquote(source), testing::Eq("Some value"));
 }
+
+
+TEST(ShotUtils, parseGeneric) {
+  string source = "1:a1:2:";
+  size_t size = 4;
+
+  auto fields = shot::parseGeneric(source, ':');
+
+  ASSERT_THAT(fields.size(), testing::Eq(size));
+}

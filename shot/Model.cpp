@@ -1,4 +1,5 @@
 #include <sstream>
+#include <iostream>
 #include "Model.h"
 #include "utils.h"
 #include "http.h"
@@ -27,8 +28,8 @@ int Model::fromString(string const& src) {
   auto fields = parseFields(src);
   size_t size = fields.size();
 
-  // check even size (name, value)
-  if (size % 2 != 0) return -1;
+  // correct size to even
+  if (size % 2 != 0) --size;
 
   int error = 0;
   int code = 0;
