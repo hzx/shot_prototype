@@ -172,12 +172,18 @@ void makeDir(const string& path) {
 }
 
 
+string getFilename(const string& path) {
+  auto pos = path.find_last_of('/');
+  if (pos == string::npos) return "";
+
+  // skip / by + 1
+  return path.substr(pos + 1);
+}
+
+
 string getExtension(const string& filename) {
   auto pos = filename.find_last_of('.');
-
-  if (pos == string::npos) {
-    return "";
-  }
+  if (pos == string::npos) return "";
 
   // skip . by + 1
   return filename.substr(pos + 1);

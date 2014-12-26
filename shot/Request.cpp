@@ -26,7 +26,8 @@ Request::Request()
     , method(C_NONE)
     , contentType(C_FORM_NONE)
     , contentLength(0)
-    , contentProgress(0) {
+    , contentProgress(0)
+    , keepFiles(false) {
 }
 
 
@@ -118,8 +119,10 @@ string Request::getSecureCookie(const char* name) {
 
 
 void Request::removeFiles() {
-  for (auto i = files.begin(); i != files.end(); ++i) {
-    std::remove(i->path.c_str());
+  if (!keepFiles) {
+    for (auto i = files.begin(); i != files.end(); ++i) {
+      std::remove(i->path.c_str());
+    }
   }
 }
 

@@ -9,23 +9,8 @@
 namespace shot {
 
 
-string Model::toString(vector<int> codes) {
-  std::ostringstream b;
-  bool first = true;
-
-  for (int code: codes) {
-    // add delimiter before next pair
-    if (first) first = false; else b << DELIM_FIELD;
-    b << code << DELIM_FIELD;
-    storeField(b, code);
-  }
-
-  return b.str();
-}
-
-
-int Model::fromString(string const& src) {
-  auto fields = parseFields(src);
+int Model::initRaw(string const& raw) {
+  auto fields = parseFields(raw);
   size_t size = fields.size();
 
   // correct size to even
@@ -49,5 +34,5 @@ int Model::fromString(string const& src) {
   return error;
 }
 
-  
+
 } /* namespace shot */

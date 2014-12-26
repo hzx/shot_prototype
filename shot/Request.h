@@ -61,6 +61,8 @@ public:
   string getParam(const char* name);
   string getSecureCookie(const char* name);
 
+  bool keepFiles;
+
 private:
   void removeFiles();
 };

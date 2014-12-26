@@ -23,6 +23,7 @@ void toLower(string& text);
 string joinUrlSlugs(vector<string>::iterator begin, vector<string>::iterator end);
 string getDirectory();
 void makeDir(const string& path);
+string getFilename(const string& path);
 string getExtension(const string& filename);
 string randomFilename(const string& filename);
 void copyFile(const string& dest, const string& src);
