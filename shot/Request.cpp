@@ -60,15 +60,15 @@ bool Request::checkXsrf() {
 
   // xsrf must exists in cookie and headers
   if (cit == cookie.end() or hit == headers.end()) {
-    Logger::instance().write("xsrf cookie or header not found");
+    std::cout << "xsrf cookie or header not found" << std::endl;
     if (cit == cookie.end()) {
-      Logger::instance().write("xsrf cookie not found");
+      std::cout << "xsrf cookie not found" << std::endl;
       for (auto it = cookie.begin(); it != cookie.end(); ++it) {
-        Logger::instance().write(it->first + '=' + it->second);
+        std::cout << it->first << '=' << it->second << std::endl;
       }
     }
     if (hit == headers.end()) {
-      Logger::instance().write("xsrf header not found");
+      std::cout << "xsrf header not found" << std::endl;
     }
     return false;
   }
@@ -76,7 +76,7 @@ bool Request::checkXsrf() {
   // hosts must be equal, skip for empty config.host
   if (!Config::instance().host.empty() and
       Config::instance().host != host) {
-    Logger::instance().write("xsrf host not equal"); 
+    std::cout << "xsrf host not equal" << std::endl; 
     return false;
   }
 
@@ -85,7 +85,7 @@ bool Request::checkXsrf() {
 
   if (cookieXsrf.length() == 0 or headerXsrf.length() == 0 or 
       cookieXsrf != headerXsrf) {
-    Logger::instance().write("xsrf cookie and xsrf header not equal");
+    std::cout << "xsrf cookie and xsrf header not equal" << std::endl;
     return false;
   }
 

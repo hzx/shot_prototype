@@ -3,6 +3,7 @@
 
 
 #include <string>
+#include <iostream>
 
 
 namespace shot {
@@ -12,9 +13,11 @@ class Logger {
 public:
   Logger();
   ~Logger();
-  static Logger& instance();
-  void error(int errorCode, std::string errorMsg);
-  void write(std::string msg);
+  /* void error(int errorCode, std::string errorMsg); */
+  /* void write(std::string msg); */
+  /* std::ostream& operator<<(const T& obj) { */
+  /*   return std::cout; */
+  /* } */
 };
 
 

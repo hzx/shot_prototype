@@ -56,7 +56,7 @@ void Server::run() {
 
   if (listenSocket == -1) {
     errorCode = -1;
-    Logger::instance().error(errorCode, "listenSocket not created");
+    std::cout << errorCode << " listenSocket not created" << std::endl;
     return;
   }
 
@@ -68,14 +68,14 @@ void Server::run() {
   // bind listenSocket
   if (bind(listenSocket, (struct sockaddr*)&addr, sizeof(struct sockaddr)) == -1) {
     errorCode = -1;
-    Logger::instance().error(errorCode, "listenSocket bind error");
+    std::cout << errorCode << " listenSocket bind error" << std::endl;
     return;
   }
 
   // listen listenSocket
   if (listen(listenSocket, 1) == -1) {
     errorCode = -1;
-    Logger::instance().error(errorCode, "listen listenSocket error");
+    std::cout << errorCode << " listen listenSocket error" << std::endl;
     return;
   }
 
@@ -84,7 +84,7 @@ void Server::run() {
 
   if (epfd == -1) {
     errorCode = -1;
-    Logger::instance().error(errorCode, "epoll create error");
+    std::cout << errorCode << " epoll create error" << std::endl;
     return;
   }
 
@@ -92,7 +92,7 @@ void Server::run() {
   auto EPOLL_CLIENT_EVENTS = EPOLLIN | EPOLLET | EPOLL_BAD_EVENTS;
 
   if (!epollAdd(listenSocket, EPOLLIN | EPOLLET)) {
-    Logger::instance().error(errorCode, "add listenSocket to epoll error");
+    std::cout << errorCode << "add listenSocket to epoll error" << std::endl;
   }
 
   // for 
@@ -111,7 +111,7 @@ void Server::run() {
 
     if (count == -1) {
       errorCode = -1;
-      Logger::instance().error(errorCode, "epoll_wait error");
+      std::cout << errorCode << "epoll_wait error" << std::endl;
       return;
     }
 
@@ -138,20 +138,20 @@ void Server::run() {
               // we have processed all incoming connections
               break;
             } else {
-              Logger::instance().error(-1, "clientSocket accept error");
+              std::cout << -1 << "clientSocket accept error" << std::endl;
               break;
             }
           }
 
           // set clientSocket non blocking
           if (fcntl(clientSocket, F_SETFL, fcntl(clientSocket, F_GETFD, 0) | O_NONBLOCK) == -1) {
-            Logger::instance().error(-1, "clientSocket setnonblocking error");
+            std::cout << -1 << "clientSocket setnonblocking error" << std::endl;
             break;
           }
 
           // add clientSocket to epoll
           if (!epollAdd(clientSocket, EPOLL_CLIENT_EVENTS)) {
-            Logger::instance().error(-1, "clientSocket add to epoll error");
+            std::cout << -1 << "clientSocket add to epoll error" << std::endl;
             break;
           }
         }
@@ -231,7 +231,7 @@ void Server::run() {
                 handler = factory500(request);
                 break;
               default:
-                Logger::instance().write("unimplemented http status: " + std::to_string(responseStatus));
+                std::cout << "unimplemented http status: " << responseStatus << std::endl;
                 closeHandler(clientSocket);
                 break;
             }
@@ -403,7 +403,7 @@ void Server::readSocket(int sock, std::ostream& buffer) {
 
     if (count <= 0) {
       if (count == -1 and errno != EAGAIN) {
-        Logger::instance().error(count, "readSocket error");
+        std::cout << count << "readSocket error" << std::endl;
       }
       break;
     }
@@ -415,10 +415,10 @@ void Server::readSocket(int sock, std::ostream& buffer) {
 
   // debug TODO: remove for if this not happen, and remove ostream, just
   // char*
-  if (counter > 1) {
-    Logger::instance().write("readSocket counter " + std::to_string(counter));
-    Logger::instance().write("readSocket total " + std::to_string(total));
-  }
+  /* if (counter > 1) { */
+  /*   Logger::instance().write("readSocket counter " + std::to_string(counter)); */
+  /*   Logger::instance().write("readSocket total " + std::to_string(total)); */
+  /* } */
 }
 
 void Server::writeSocket(int sock, const char* buf, int size) {
@@ -429,11 +429,11 @@ void Server::writeSocket(int sock, const char* buf, int size) {
 
     if (count <= 0) {
       if (count < 0) {
-        Logger::instance().error(count, "writeSocket error");
+        std::cout << count << "writeSocket error" << std::endl;
         return;
       } else {
         if (count != total) {
-          Logger::instance().error(count, "writeSocket error count not equal total");
+          std::cout << count << "writeSocket error count not equal total" << std::endl;
         }
       }
       break;

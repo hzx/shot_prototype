@@ -1,4 +1,4 @@
-#include "Logger.h"
+#include <iostream>
 #include "DbClient.h"
 
 
@@ -48,13 +48,13 @@ bool DbClient::init(string host, string port, string user, string password, stri
 
   mongo::Status status = mongo::client::initialize();
   if (!status.isOK()) {
-    Logger::instance().write("[db]: failed to initialize the client driver" + status.toString());
+    std::cout << "[db]: failed to initialize the client driver" << status << std::endl;
     return false;
   }
 
   string errmsg;
   if (!conn.connect(host + ':' + port, errmsg)) {
-    Logger::instance().write("[db]: failed connect: " + errmsg);
+    std::cout << "[db]: failed connect: " << errmsg << std::endl;
     return false;
   }
 
@@ -72,7 +72,7 @@ bool DbClient::insert(Query& query) {
     BSON( "name" << "Квартира 2 комнатная" << "price" << 2500000 ));
   string e = conn.getLastError();
   if (!e.empty()) {
-    Logger::instance().write("insert failed: " + e);
+    std::cout << "insert failed: " << e << std::endl;
     return false;
   }
   return true;

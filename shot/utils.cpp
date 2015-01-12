@@ -6,6 +6,7 @@
 #include <iostream>
 #include <cctype>
 #include <cstdlib>
+#include <cstdio>
 #include <cstring>
 #include <unistd.h>
 #include <sys/types.h>
@@ -203,6 +204,12 @@ void copyFile(const string& dest, const string& src) {
   std::ifstream fs (src, std::fstream::binary);
   std::ofstream fd (dest, std::fstream::trunc | std::fstream::binary);
   fd << fs.rdbuf ();
+}
+
+
+// TODO: not working
+void moveFile(const string& dest, const string& src) {
+  std::rename(src.data(), dest.data());
 }
 
 
