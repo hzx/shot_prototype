@@ -1,7 +1,7 @@
 #include <sstream>
 #include "http.h"
 #include "utils.h"
-#include "Config.h"
+#include "Options.h"
 #include "Response.h"
 
 
@@ -51,11 +51,67 @@ string Response::toString() {
   }
 
   // calculate content length - content total length
-  string contentString = content.str();
-  int contentLength = contentString.length();
-  /* for (auto it = content.begin(); it != content.end(); ++it) { */
-  /*   contentLength += it->length(); */
-  /* } */
+  string body = content.str();
+  int length = body.length();
+
+  // add Content-length header
+  buf << K_CONTENT_LENGTH_COLON << std::to_string(length) << '\n';
+
+  // add headers
+  for (auto it = headers.begin(); it != headers.end(); ++it) {
+    buf << it->first << ':' << it->second << '\n';
+  }
+
+  // add cookie
+  if (!cookie.empty()) {
+    for (auto it = cookie.begin(); it != cookie.end(); ++it) {
+      buf << K_SET_COOKIE << ':' << it->first << '=' << it->second << "\n";
+    }
+  }
+
+  // add content
+  buf << '\n' << body;
+
+  return buf.str();
+}
+
+
+void Response::toString(string& headers_, string& content_) {
+  content_ = content.str();
+  int contentLength = content_.length();
+
+  ostringstream buf;
+
+  // add status
+  switch (status) {
+  case HTTP_200:
+    buf << HTTP_STATUS_200;
+    break;
+  case HTTP_301:
+    buf << HTTP_STATUS_301;
+    break;
+  case HTTP_302:
+    buf << HTTP_STATUS_302;
+    break;
+  case HTTP_400:
+    buf << HTTP_STATUS_400;
+    break;
+  case HTTP_403:
+    buf << HTTP_STATUS_403;
+    break;
+  case HTTP_404:
+    buf << HTTP_STATUS_404;
+    break;
+  case HTTP_405:
+    buf << HTTP_STATUS_405;
+    break;
+  case HTTP_406:
+    buf << HTTP_STATUS_406;
+    break;
+  case HTTP_500:
+    buf << HTTP_STATUS_500;
+  }
+
   // add Content-length header
   buf << K_CONTENT_LENGTH_COLON << std::to_string(contentLength) << '\n';
 
@@ -74,13 +130,7 @@ string Response::toString() {
   // insert blank line
   buf << '\n';
 
-  // add body content
-  buf << contentString;
-  /* for (auto it = content.begin(); it != content.end(); ++it) { */
-  /*   buf << *it; */
-  /* } */
-
-  return buf.str();
+  headers_ = buf.str();
 }
 
 
@@ -124,13 +174,14 @@ void Response::setCookie(const char* name, const char* value, int expiresDays) {
   }
 
   buf << ";Path=/;HttpOnly";
+  // buf << ";Secure"; // ssl only
 
   cookie.insert({name, buf.str()});
 }
 
 
 void Response::setSecureCookie(const char* name, const char* value, int expiresDays) {
-  string enc = encodeCookie(Config::instance().cookieSecret, name, value, std::time(nullptr));
+  string enc = encodeCookie(Options::instance().cookieSecret, name, value, std::time(nullptr));
   setCookie(name, enc.data(), expiresDays);
 }
 
@@ -140,8 +191,8 @@ void Response::clearCookie(const char* name) {
 }
 
 
-void Response::setStatus(int statuz) {
-  status = statuz;
+void Response::setStatus(int status_) {
+  status = status_;
 }
 
 

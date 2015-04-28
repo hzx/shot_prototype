@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include <memory>
 #include "Logger.h"
-#include "Config.h"
+#include "Options.h"
 #include "Request.h"
 #include "Parser.h"
 #include "Handler.h"

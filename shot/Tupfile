@@ -7,12 +7,7 @@ LIBS += \
 -lboost_thread\
 -lpthread\
 -lcrypto\
--lmongoclient\
--lMagick++ -lMagickCore
-
-#`Magick++-config --libs`
+-lmongoclient
 
 : foreach *.cpp |> !ccp |> {objs}
 : {objs} |> !lib |>
-
-#: {objs} |> $(CC) -shared -Wl,-soname,%o $(LFLAGS) -o %o $(LIBS) %f |> lib%d.so

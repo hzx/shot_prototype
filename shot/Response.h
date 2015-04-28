@@ -20,6 +20,7 @@ namespace shot {
 class Response {
 public:
   Response();
+  void toString(string& headers, string& content);
   string toString();
   void setHeader(const char* name, const char* value);
   void setTextHeader();
@@ -30,13 +31,12 @@ public:
   void setCookie(const char* name, const char* value, int expiresDays = 30);
   void setSecureCookie(const char* name, const char* value, int expiresDays = 30);
   void clearCookie(const char* name);
-  void setStatus(int statuz);
+  void setStatus(int status);
 
   int status;
   unordered_map<string, string> headers;
   unordered_map<string, string> cookie;
   size_t contentLength;
-  /* vector<string> content; */
   ostringstream content;
   string error;
   bool flush;

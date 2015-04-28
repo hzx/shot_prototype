@@ -1,4 +1,4 @@
-#include "Config.h"
+#include "Options.h"
 #include "Filer.h"
 #include "utils.h"
 #include "AppHandler.h"
@@ -21,8 +21,8 @@ AppTemplate::AppTemplate(string title, string css, string js) {
 
 
 void AppHandler::appGet(string title, string cssfilename, string jsfilename) {
-  auto cssabs = shot::Config::instance().directory + cssfilename;
-  auto jsabs = shot::Config::instance().directory + jsfilename;
+  auto cssabs = shot::Options::instance().directory + cssfilename;
+  auto jsabs = shot::Options::instance().directory + jsfilename;
 
   if (!shot::pathExists(cssabs.c_str()) ||
       !shot::pathExists(jsabs.c_str())) {

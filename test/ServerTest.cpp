@@ -5,7 +5,7 @@ using namespace testing;
 
 class ServerTest: public testing::Test {
 public:
-  shot::Config config;
+  shot::Options options;
   shot::Logger logger;
   shot::Server server;
 

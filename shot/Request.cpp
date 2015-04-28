@@ -4,7 +4,7 @@
 #include <cstring>
 #include <cstdio>
 #include "Request.h"
-#include "Config.h"
+#include "Options.h"
 #include "http.h"
 #include "utils.h"
 #include "Logger.h"
@@ -74,8 +74,8 @@ bool Request::checkXsrf() {
   }
 
   // hosts must be equal, skip for empty config.host
-  if (!Config::instance().host.empty() and
-      Config::instance().host != host) {
+  if (!Options::instance().host.empty() and
+      Options::instance().host != host) {
     std::cout << "xsrf host not equal" << std::endl; 
     return false;
   }
@@ -113,7 +113,7 @@ string Request::getParam(const char* name) {
 
 string Request::getSecureCookie(const char* name) {
   string value = getCookie(name);
-  return value.empty() ? "" : decodeCookie(Config::instance().cookieSecret,
+  return value.empty() ? "" : decodeCookie(Options::instance().cookieSecret,
       name, value, 30, std::time(nullptr));
 }
 

@@ -1,6 +1,6 @@
 #include "utils.h"
 #include "Filer.h"
-#include "Config.h"
+#include "Options.h"
 #include "http.h"
 #include "system_handlers.h"
 #include "Logger.h"
@@ -18,7 +18,7 @@ void StaticHandler::staticGet() {
     return;
   }
 
-  string filename = Config::instance().directory +
+  string filename = Options::instance().directory +
     joinUrlSlugs(request->slugs.begin(), request->slugs.end());
 
   // TODO: set config static directory and check filename child

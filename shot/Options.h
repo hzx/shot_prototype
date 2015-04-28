@@ -1,5 +1,5 @@
-#ifndef SHOT_CONFIG_H
-#define SHOT_CONFIG_H
+#ifndef SHOT_OPTIONS_H
+#define SHOT_OPTIONS_H
 
 #include <string>
 
@@ -13,15 +13,15 @@ namespace shot {
 const int DEFAULT_PORT = 8000;
 const int DEFAULT_MAX_EVENTS = 1024;
 const int DEFAULT_CHUNK_SIZE = 16384; // 1024 * 16 = 16KB, MAX = 65535
-const string DEFAULT_CONFIG_FILENAME = "/etc/shot/shot.conf";
+const string DEFAULT_OPTIONS_FILENAME = "/etc/shot/shot.conf";
 
 
-class Config {
+class Options {
 public:
-  Config();
-  ~Config();
+  Options();
+  ~Options();
 
-  static Config& instance();
+  static Options& instance();
 
   // listened port
   int port;
@@ -54,4 +54,4 @@ public:
 
 } /* namespace shot */
 
-#endif /* end of include guard: SHOT_CONFIG_H */
+#endif /* end of include guard: SHOT_OPTIONS_H */

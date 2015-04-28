@@ -7,7 +7,7 @@
 #include <cctype>
 #include "Logger.h"
 #include "Parser.h"
-#include "Config.h"
+#include "Options.h"
 #include "http.h"
 #include "utils.h"
 
@@ -345,7 +345,7 @@ void Parser::parseBodyData(Request& request, string& source,
       }
 
       hpos = parseFileHeaders(request.file, source, bpos, right);
-      request.file.path = Config::instance().tmp + randomFilename(request.file.filename);
+      request.file.path = Options::instance().tmp + randomFilename(request.file.filename);
 
       // move position after headers and blank line to data
       pos = hpos + 1;

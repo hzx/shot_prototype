@@ -6,7 +6,7 @@
 #include <algorithm>
 #include "gmock/gmock.h"
 #include "Parser.h"
-#include "Config.h"
+#include "Options.h"
 #include "http.h"
 
 string sourceGet = R"(GET /d HTTP/1.1

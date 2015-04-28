@@ -48,7 +48,7 @@ void Server::run() {
   sockaddr_in addr;
   memset(&addr, 0, sizeof(struct sockaddr_in));
   addr.sin_family = AF_INET;
-  addr.sin_port = htons(Config::instance().port);
+  addr.sin_port = htons(Options::instance().port);
   addr.sin_addr.s_addr = INADDR_ANY;
 
   // create listenSocket
@@ -99,7 +99,7 @@ void Server::run() {
   int clientSocket;
   sockaddr clientAddr;
   socklen_t clientAddrSize;
-  epoll_event events[Config::instance().maxEvents];
+  epoll_event events[Options::instance().maxEvents];
 
   int count;
   int n;
@@ -107,7 +107,7 @@ void Server::run() {
   // run event loop
   for (;;) {
     // wait epoll events (listenSocket, clientSocket)
-    count = epoll_wait(epfd, events, Config::instance().maxEvents, -1);
+    count = epoll_wait(epfd, events, Options::instance().maxEvents, -1);
 
     if (count == -1) {
       errorCode = -1;
@@ -394,12 +394,12 @@ void Server::flushHandler(Handler* handler) {
 // split by two methods, read to buffer (for GET) and read to ostream (for POST)
 void Server::readSocket(int sock, std::ostream& buffer) {
   int count; // count read from socket
-  char buf[Config::instance().chunkSize]; // buffer for socket
+  char buf[Options::instance().chunkSize]; // buffer for socket
   size_t counter = 0;
   size_t total = 0;
 
   for (int i = 0; ; ++i) {
-    count = read(sock, (void*)buf, Config::instance().chunkSize);
+    count = read(sock, (void*)buf, Options::instance().chunkSize);
 
     if (count <= 0) {
       if (count == -1 and errno != EAGAIN) {
@@ -421,29 +421,27 @@ void Server::readSocket(int sock, std::ostream& buffer) {
   /* } */
 }
 
+// TODO: IE -1 writeSocket error message
 void Server::writeSocket(int sock, const char* buf, int size) {
   int total = 0;
   int count;
   for (;;) {
-    count = write(sock, buf, size);
+    count = write(sock, buf + total, size - total);
 
     if (count <= 0) {
       if (count < 0) {
-        std::cout << count << "writeSocket error" << std::endl;
+        std::cout << count << " writeSocket error" << std::endl;
         return;
       } else {
         if (count != total) {
-          std::cout << count << "writeSocket error count not equal total" << std::endl;
+          std::cout << count << " writeSocket error count not equal total" << std::endl;
         }
       }
       break;
     }
 
     total += count;
-
-    if (total == size) {
-      break;
-    }
+    if (total == size) break;
   }
 }
 

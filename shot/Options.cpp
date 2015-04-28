@@ -1,5 +1,5 @@
 #include <boost/program_options.hpp>
-#include "Config.h"
+#include "Options.h"
 #include "utils.h"
 
 
@@ -9,11 +9,11 @@ namespace po = boost::program_options;
 namespace shot {
 
 
-Config::Config()
+Options::Options()
     : port(DEFAULT_PORT)
     , maxEvents(DEFAULT_MAX_EVENTS)
     , chunkSize(DEFAULT_CHUNK_SIZE)
-    , filename(DEFAULT_CONFIG_FILENAME)
+    , filename(DEFAULT_OPTIONS_FILENAME)
     , tmp("/tmp/")
     , dbhost("127.0.0.1")
     , dbport("27017")
@@ -24,17 +24,17 @@ Config::Config()
 }
 
 
-Config::~Config() {
+Options::~Options() {
 }
 
 
-Config& Config::instance() {
-  static Config config;
-  return config;
+Options& Options::instance() {
+  static Options options;
+  return options;
 }
 
 
-int Config::parseCmd(int argc, const char* argv[]) {
+int Options::parseCmd(int argc, const char* argv[]) {
   try {
     po::options_description desc("Allowed options");
     desc.add_options()
@@ -42,7 +42,7 @@ int Config::parseCmd(int argc, const char* argv[]) {
       ("port", po::value<int>(), "listen port")
       ("host", po::value<std::string>(), "site domain")
       ("static", po::value<std::string>(), "static directory")
-      /* ("config", po::value<>(), "config filename") */
+      /* ("options", po::value<>(), "options filename") */
       ;
 
     po::variables_map vm;
@@ -72,7 +72,7 @@ int Config::parseCmd(int argc, const char* argv[]) {
 }
 
 
-int Config::parseFile(const char* filename) {
+int Options::parseFile(const char* filename) {
   return 0;
 }
 
