@@ -15,13 +15,13 @@ namespace shot {
 
 class AppTemplate: public shot::HtmlTemplate {
 public:
-  AppTemplate(string title, string css, string js);
+  AppTemplate(string title, string js);
 };
   
 
 class AppHandler: public shot::Handler {
 public:
-  void appGet(string title, string cssfilename, string jsfilename);
+  void appGet(string title, string jsfilename);
 };
 
 
