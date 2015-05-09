@@ -1,16 +1,13 @@
 export HOME
-IMGUTIL = $HOME/projects/imgutil
 
 CC = clang++
 OPT += -Wall -O2 -std=c++11
 
 CFLAGS += -I$(TUP_CWD)/shot\
 -I/usr/include\
--I$(IMGUTIL)
 
 LFLAGS += -L$(TUP_CWD)/shot\
 -L/usr/local/lib\
--L$(IMGUTIL)/build-debug/imgutil
 
 !cc = |> ^ cc %f^ $(CC) $(OPT) $(CFLAGS) -c %f -o %o |> %B.o
 !ccp = |> ^ ccp %f^ $(CC) $(OPT) $(CFLAGS) -fPIC -c %f -o %o |> %B.o
