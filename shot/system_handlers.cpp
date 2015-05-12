@@ -242,4 +242,9 @@ void E500Handler::xget() {
 }
 
 
+void DebugHandler::xget() {
+  response.flush = false; // long polling
+}
+
+
 } /* namespace shot */

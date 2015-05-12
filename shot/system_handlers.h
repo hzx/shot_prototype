@@ -122,6 +122,11 @@ public:
   void xget();
 };
 
+
+class DebugHandler: public Handler {
+  void xget();
+};
+
   
 } /* namespace shot */
 
