@@ -11,12 +11,42 @@ AppTemplate::AppTemplate(string title, string js) {
   // add noscript redirect
   // inline css, js
   head <<
-    "<noscript>"
-    "<meta http-equiv=\"refresh\" content=\"0;url=/noscript\"/>"
-    "</noscript>"
-    "<title>" << title << "</title>"
-    /* "<style type=\"text/css\">" << "</style>" */
-    "<script type=\"text/javascript\">" << js << "</script>";
+R"(<noscript><meta http-equiv="refresh" content="0;url=/noscript"/></noscript>
+<title>)" << title << "</title>" << 
+R"(<style type="text/css">
+html, body {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+html,
+button,
+input,
+select,
+textarea {
+  font-family: sans-serif;
+}
+img {
+  border: 0; /* 1 */
+  -ms-interpolation-mode: bicubic; /* 2 */
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+input {
+  outline-style: none;
+  margin: 0;
+  padding: 0;
+}
+</style>
+<script type="text/javascript">)" << js << "</script>";
 }
 
 
