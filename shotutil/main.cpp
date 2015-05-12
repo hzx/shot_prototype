@@ -32,15 +32,16 @@ struct inotify_event* event;
 int error;
 string filename;
 string absname;
-string currentDir;
+string projectDir;
+string staticDir;
 
 
 int runChild(char const* app);
+void showError();
 
 
 int monitor() {
-  cout << "main app here" << endl;
-  cout << "childPid: " << childPid << endl;
+  cout << "monitor childPid: " << childPid << endl;
 
   // inotify init
   notifyId = inotify_init();
@@ -55,7 +56,22 @@ int monitor() {
   /*   cout << "inotify_add_watch error" << endl; */
   /*   return -1; */
   /* } */
-  int dirId = inotify_add_watch(notifyId, currentDir.c_str(), IN_MOVED_TO | IN_DELETE);
+  int projectId = inotify_add_watch(notifyId, projectDir.c_str(), IN_MOVED_TO | IN_DELETE);
+  if (projectId == -1) {
+    cout << "inotify_add_watch projectId error" << endl;
+    showError();
+    return -1;
+  }
+  /* cout << "projectId: " << projectId << endl; */
+
+  int staticId = inotify_add_watch(notifyId, staticDir.c_str(), IN_CLOSE_WRITE);// IN_MOVED_TO | IN_DELETE);
+  if (staticId == -1) {
+    cout << "inotify_add_watch staticId error" << endl;
+    showError();
+    return -1;
+  }
+  /* cout << "staticId: " << staticId << endl; */
+
   /* int watchId; */
   /*   watchId = inotify_add_watch(notifyId, filename.c_str(), IN_ONESHOT | IN_IGNORED);//IN_MODIFY); */
   /*   if (watchId == -1) { */
@@ -76,6 +92,7 @@ int monitor() {
   // epoll event loop
   // TODO: make epoll like in shot
 
+  bool isChanges = false;
   for (;;) { // read events forever
     // inotofy add watch
 
@@ -86,31 +103,42 @@ int monitor() {
     }
     if (numRead == -1) {
       cout << "read error" << endl;
+      return -1;
     }
 
     /* cout << "read " << numRead << " bytes from notifyId" << endl; */
+
+    isChanges = false;
 
     // process all of the events in buffer
     for (cursor = eventsBuf; cursor < eventsBuf + numRead; ) {
       event = (struct inotify_event*)(cursor);
       cursor += sizeof(struct inotify_event) + event->len;
       /* displayInotifyEvent(event); */
-      if (event->name == filename) {
-        if (event->mask & IN_DELETE) {
-          /* cout << "kill " << filename << endl; */
-          kill(childPid,  SIGKILL);
-          waitpid(childPid, 0, 0);
+
+      if (event->wd == projectId) {
+        if (event->name == filename) {
+          /* if (event->mask & IN_DELETE) { */
+          /*   /1* cout << "kill " << filename << endl; *1/ */
+          /*   kill(childPid,  SIGKILL); */
+          /*   waitpid(childPid, 0, 0); */
+          /* } */
+          /* if (event->mask & IN_MOVED_TO) { */
+          /*   /1* cout << "start " << filename << endl; *1/ */
+          /*   runChild(absname.c_str()); */
+          /* } */
+          isChanges = true;
         }
-        if (event->mask & IN_MOVED_TO) {
-          /* cout << "start " << filename << endl; */
-          runChild(absname.c_str());
-        }
+      } else if (event->wd == staticId) {
+        isChanges = true;
       }
-      /* if (event->mask & IN_MODIFY) { */
-      /*   cout << "restart " << filename << endl; */
-      /* } */
     }
 
+    if (isChanges) {
+      kill(childPid, SIGKILL);
+      waitpid(childPid, 0, 0);
+      runChild(absname.c_str());
+    }
   }
 
   /* error = inotify_rm_watch(notifyId, event->wd); */
@@ -142,29 +170,23 @@ int runChild(char const* app) {
 
 
 int main(int argc, const char *argv[]) {
-  if (argc < 2) {
-    cout << "need app argument" << endl;
-    return -1;
-  }
+  filename = "server";
+  projectDir = getCurrentDir();
 
-  filename = argv[1];
-  currentDir = getCurrentDir();
   ostringstream buf;
-  buf << currentDir << '/' << filename;
+  buf << projectDir << '/' << filename;
   absname = buf.str();
+
+  staticDir = projectDir + "/static";
 
   if (!existsFile(absname)) {
     cout << "not exist app filename: " << filename << endl;
     return -1;
   }
 
-  // parse options
-  cout << "argc: " << argc << '\n';
-  for (int i = 0; i < argc; ++i) {
-    cout << argv[i] << endl;
-  }
-
-  cout << "monitor file: " << absname << endl;
+  /* cout << "monitor file: " << absname << endl; */
+  /* cout << "monitor projectDir: " << projectDir << endl; */
+  /* cout << "monitor staticDir: " << staticDir << endl; */
 
   return runChild(absname.c_str());
 
@@ -201,7 +223,21 @@ int main(int argc, const char *argv[]) {
 }
 
 
+void showError() {
+  cout << "errno: ";
+  if (errno & EACCES) cout << "eacces, ";
+  if (errno & EBADF) cout << "ebadf, ";
+  if (errno & EFAULT) cout << "efault, ";
+  if (errno & EINVAL) cout << "einval, ";
+  if (errno & ENOMEM) cout << "enomem, ";
+  if (errno & ENOSPC) cout << "enospc, ";
+  cout << errno << endl;
+}
+
+
 void displayInotifyEvent(struct inotify_event* e) {
+  cout << "wd: " << e->wd << endl;
+
   if (e->cookie > 0) {
     cout << "cookie: " << e->cookie << endl;
   }
