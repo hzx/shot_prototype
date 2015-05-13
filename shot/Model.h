@@ -3,16 +3,17 @@
 
 
 #include <ostream>
+#include <sstream>
 #include <string>
 #include <vector>
 #include <iostream>
 #include "DbClient.h"
 #include "http.h"
 
-
 using std::string;
 using std::vector;
 using std::ostream;
+using std::ostringstream;
 
 
 namespace shot {
@@ -42,6 +43,16 @@ int cursorToStream(mongo::DBClientCursor& cursor, ostream& stream) {
   }
 
   return counter;
+}
+
+
+template<class T>
+int tableToStream(int table, mongo::DBClientCursor& cursor, ostream& stream) {
+  ostringstream buf;
+  int count = cursorToStream<T>(cursor, buf);
+  if (count > 0) {
+    stream << table << shot::DELIM_FIELD << count << shot::DELIM_ROW << buf;
+  }
 }
 
   
