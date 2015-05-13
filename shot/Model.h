@@ -53,6 +53,7 @@ int tableToStream(int table, mongo::DBClientCursor& cursor, ostream& stream) {
   if (count > 0) {
     stream << table << shot::DELIM_FIELD << count << shot::DELIM_ROW << buf;
   }
+  return count;
 }
 
   
