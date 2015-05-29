@@ -19,6 +19,11 @@ using std::ostringstream;
 namespace shot {
 
 
+size_t const OID_SIZE = 24;
+int const ID = 1;
+char const S_ID[] = "_id";
+
+
 class Model {
 public:
   virtual int init(bson::bo& obj) = 0;
