@@ -137,7 +137,7 @@ int monitor() {
     if (isChanges) {
       kill(childPid, SIGKILL);
       waitpid(childPid, 0, 0);
-      sleep(50);
+      sleep(1);
       runChild(absname.c_str());
     }
   }
