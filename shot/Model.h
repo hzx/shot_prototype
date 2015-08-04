@@ -26,11 +26,11 @@ char const S_ID[] = "_id";
 
 class Model {
 public:
-  virtual int init(bson::bo& obj) = 0;
+  virtual int fromDbFormat(bson::bo& obj) = 0;
   virtual int parseField(int code, string const& value) = 0;
-  virtual void save(bson::bob& builder) = 0;
-  virtual void save(ostream& stream) = 0;
-  int initRaw(string const& raw);
+  virtual void toDbFormat(bson::bob& builder) = 0;
+  virtual void toCompactFormat(ostream& stream) = 0;
+  int fromCompactFormat(string const& raw);
 };
 
 

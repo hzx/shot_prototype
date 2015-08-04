@@ -5,11 +5,10 @@
 #include "http.h"
 
 
-
 namespace shot {
 
 
-int Model::initRaw(string const& raw) {
+int Model::fromCompactFormat(string const& raw) {
   auto fields = parseFields(raw);
   size_t size = fields.size();
 
