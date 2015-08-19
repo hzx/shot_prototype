@@ -1,7 +1,15 @@
 export HOME
 
 CC = clang++
-OPT += -Wall -O2 -std=c++11
+OPT += -Wall -std=c++11
+
+ifeq (@(DEBUG),1)
+BUILD=build-debug
+CFLAGS += -g -O0
+else
+BUILD=build-release
+CFLAGS += -O2
+endif
 
 CFLAGS += -I$(TUP_CWD)/shot\
 -I/usr/include\
