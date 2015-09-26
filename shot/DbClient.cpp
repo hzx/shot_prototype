@@ -8,6 +8,11 @@ using std::string;
 namespace shot {
 
 
+std::string newId() {
+  return mongo::OID::gen().toString();
+}
+
+
 Query::Query(string table) {
   this->table = table;
 }

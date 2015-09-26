@@ -15,6 +15,9 @@ using std::vector;
 namespace shot {
 
 
+std::string newId();
+
+
 class Query {
 public:
   Query(string table);
