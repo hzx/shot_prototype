@@ -13,7 +13,16 @@ public:
   int value = 0;
   bool has = false;
 
-  void set(int value_);
+  void set(int value);
+};
+
+
+class Uint {
+public:
+  unsigned int value = 0;
+  bool has = false;
+
+  void set(uint value);
 };
 
 
@@ -22,7 +31,7 @@ public:
   float value = 0.0;
   bool has = false;
 
-  void set(float value_);
+  void set(float value);
 };
 
 
@@ -31,9 +40,9 @@ public:
   string value;
   bool has = false;
 
-  void set(string& value_);
-  void set(string&& value_);
-  void set(string const& value_);
+  void set(string& value);
+  void set(string&& value);
+  void set(string const& value);
 };
 
 

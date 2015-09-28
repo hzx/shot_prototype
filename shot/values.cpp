@@ -9,6 +9,12 @@ void Int::set(int value_) {
 }
 
 
+void Uint::set(uint value_) {
+  value = value_;
+  has = true;
+}
+
+
 void Float::set(float value_) {
   value = value_;
   has = true;
