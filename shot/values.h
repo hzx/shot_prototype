@@ -23,6 +23,7 @@ public:
   bool has = false;
 
   void set(uint value);
+  void set(std::string value);
 };
 
 
