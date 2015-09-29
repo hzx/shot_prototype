@@ -42,8 +42,8 @@ int cursorToStream(mongo::DBClientCursor& cursor, ostream& stream) {
     ++counter;
     T model;
     bson::bo obj = cursor.next();
-    model.init(obj);
-    model.save(stream);
+    model.fromDbFormat(obj);
+    model.toCompactFormat(stream);
     stream << shot::DELIM_ROW;
   }
 
