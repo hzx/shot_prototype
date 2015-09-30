@@ -46,5 +46,19 @@ void String::set(string const& value_) {
   has = true;
 }
 
+
+void Bool::set(bool value_) {
+  value = value_;
+  has = true;
+}
+
+void Bool::on() {
+  set(true);
+}
+
+void Bool::off() {
+  set(false);
+}
+
   
 } /* namespace shot */

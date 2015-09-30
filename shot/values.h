@@ -46,6 +46,16 @@ public:
   void set(string const& value);
 };
 
+class Bool {
+public:
+  bool value = false;
+  bool has = false;
+
+  void set(bool value);
+  void on();
+  void off();
+};
+
 
 } /* namespace shot */
 
