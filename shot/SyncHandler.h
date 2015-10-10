@@ -14,8 +14,8 @@ int const SYNC_PARAMS = 3;
 int const SYNC_BEFOREID = 4;
 int const SYNC_OBJ = 5;
 int const SYNC_ID = 6;
-int const SYNC_CHILD_ID = 7;
-int const SYNC_FIELD = 8;
+int const SYNC_PARENT_ID = 7;
+int const SYNC_PARENT_FIELD = 8;
 
 int const SYNC_OP_NONE = 0;
 int const SYNC_OP_UPDATE = 1;
