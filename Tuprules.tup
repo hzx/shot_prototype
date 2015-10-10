@@ -1,6 +1,6 @@
 export HOME
 
-CC = clang++
+CC = g++
 OPT += -Wall -std=c++11
 
 ifeq (@(DEBUG),1)
