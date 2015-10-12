@@ -28,6 +28,8 @@ public:
   void parseProtocol(Request& request, string& source, size_t length);
   void parseMethod(Request& request, string& source, size_t length);
   void parseUrl(Request& request, string& source, size_t left, size_t right);
+  void parseGetParams(Request& request, string& source,
+      size_t left, size_t right);
   void parseVersion(Request& request, string& source, size_t left, size_t right);
   size_t parseHeaders(unordered_map<string, string>& headers, string& source,
       size_t left, size_t right);

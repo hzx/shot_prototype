@@ -148,7 +148,14 @@ void Parser::parseUrl(Request& request, string& source, size_t left, size_t righ
   }
 
   // set right until ?
-  right = getPos(source, '?', left + 1, right);
+  auto quest = getPos(source, '?', left + 1, right);
+
+  if (request.method == C_GET) {
+    parseGetParams(request, source, quest + 1, right);
+  }
+
+  right = quest;
+
 
   // find left and right slug positions until right (space or ?)
   size_t lpos = left + 1;
@@ -171,6 +178,12 @@ void Parser::parseUrl(Request& request, string& source, size_t left, size_t righ
   }
 }
 
+void Parser::parseGetParams(Request& request, string& source,
+    size_t left, size_t right) {
+  if (left >= right) return;
+
+  parseParams(request.params, source, left, right);
+}
 
 void Parser::parseVersion(Request& request, string& source, size_t left, size_t right) {
   // TODO: use it
