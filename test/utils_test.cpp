@@ -191,9 +191,7 @@ TEST(ShotUtils, parseGeneric) {
 
 TEST(ShotUtils, split) {
   std::string text1 = "this,tags,field";
-  std::string text2 = ",empty,first,last,";
   std::vector<std::string> expected1 = {"this", "tags", "field"};
-  std::vector<std::string> expected2 = {"", "empty", "first", "last", ""};
 
   std::vector<std::string> actual1;
   shot::split(text1, ',', actual1);
@@ -201,11 +199,32 @@ TEST(ShotUtils, split) {
   ASSERT_THAT(actual1.size(), expected1.size());
   ASSERT_THAT(actual1, expected1);
 
+  std::string text2 = ",empty,first,last,";
+  std::vector<std::string> expected2 = {"", "empty", "first", "last", ""};
+
   std::vector<std::string> actual2;
   shot::split(text2, ',', actual2);
 
   ASSERT_THAT(actual2.size(), expected2.size());
   ASSERT_THAT(actual2, expected2);
+
+  std::string text3 = "simple";
+  std::vector<std::string> expected3 = {"simple"};
+
+  std::vector<std::string> actual3;
+  shot::split(text3, ',', actual3);
+
+  ASSERT_THAT(actual3.size(), expected3.size());
+  ASSERT_THAT(actual3, expected3);
+
+  std::string text4 = "";
+  std::vector<std::string> expected4 = {};
+
+  std::vector<std::string> actual4;
+  shot::split(text4, ',', actual4);
+
+  ASSERT_THAT(actual4.size(), expected4.size());
+  ASSERT_THAT(actual4, expected4);
 }
 
 
@@ -259,6 +278,13 @@ TEST(ShotUtils, insert) {
   shot::insert("e", "", ids2);
 
   ASSERT_THAT(ids2, expected2);
+
+  std::vector<std::string> ids3 = {"a"};
+  std::vector<std::string> expected3 = {"a", "b"};
+
+  shot::insert("b", "", ids3);
+
+  ASSERT_THAT(ids3, expected3);
 }
 
 TEST(ShotUtils, remove) {

@@ -834,7 +834,7 @@ void split(std::string& text, char delimiter,
   }
 
   // add remainder
-  if (isDelimiterFound) {
+  if (text.size() - left > 0 or isDelimiterFound) {
     chunks.push_back(text.substr(left, text.size() - left));
   }
 }
