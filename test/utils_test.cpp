@@ -226,3 +226,46 @@ TEST(ShotUtils, join) {
   ASSERT_THAT(actual2, expected2);
   ASSERT_THAT(actual3, expected3);
 }
+
+
+TEST(ShotUtils, move) {
+  std::vector<std::string> ids1 = {"a", "b", "c", "d"};
+  std::vector<std::string> expected1 = {"b", "a", "c", "d"};
+
+  shot::move("a", "c", ids1);
+
+  ASSERT_THAT(ids1, expected1);
+
+  std::vector<std::string> ids2 = {"a", "b", "c", "d"};
+  std::vector<std::string> expected2 = {"a", "c", "d", "b"};
+
+  shot::move("b", "", ids2);
+
+  ASSERT_THAT(ids2, expected2);
+}
+
+
+TEST(ShotUtils, insert) {
+  std::vector<std::string> ids1 = {"a", "b", "c", "d"};
+  std::vector<std::string> expected1 = {"a", "b", "e", "c", "d"};
+
+  shot::insert("e", "c", ids1);
+
+  ASSERT_THAT(ids1, expected1);
+
+  std::vector<std::string> ids2 = {"a", "b", "c", "d"};
+  std::vector<std::string> expected2 = {"a", "b", "c", "d", "e"};
+
+  shot::insert("e", "", ids2);
+
+  ASSERT_THAT(ids2, expected2);
+}
+
+TEST(ShotUtils, remove) {
+  std::vector<std::string> ids1 = {"a", "b", "c", "d"};
+  std::vector<std::string> expected1 = {"a", "c", "d"};
+
+  shot::remove("b", ids1);
+
+  ASSERT_THAT(ids1, expected1);
+}

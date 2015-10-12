@@ -855,4 +855,117 @@ std::string join(std::vector<std::string>& words, char delimiter) {
 }
 
 
+void move(std::string id, std::string beforeId, std::vector<std::string>& ids) {
+  size_t idPos = 0;
+  bool isIdFound = false;
+
+  for (size_t i = 0; i < ids.size(); ++i) {
+    if (ids[i] == id) {
+      isIdFound = true;
+      idPos = i;
+      break;
+    }
+  }
+
+  if (not isIdFound) return;
+
+  size_t beforeIdPos = 0;
+  bool isBeforeIdFound = false;
+
+  if (not beforeId.empty()) {
+    for (size_t i = 0; i < ids.size(); ++i) {
+      if (ids[i] == beforeId) {
+        isBeforeIdFound = true;
+        beforeIdPos = i;
+        break;
+      }
+    }
+  }
+
+  std::vector<std::string> buf;
+
+  if (not isBeforeIdFound) {
+    for (size_t i = 0; i < ids.size(); ++i) {
+      if (i == idPos) continue;
+      buf.push_back(ids[i]);
+    }
+    buf.push_back(id);
+  } else {
+
+    for (size_t i = 0; i < beforeIdPos; ++i) {
+      if (i == idPos) continue;
+      buf.push_back(ids[i]);
+    }
+
+    buf.push_back(ids[idPos]);
+
+    for (size_t i = beforeIdPos; i < ids.size(); ++i) {
+      if (i == idPos) continue;
+      buf.push_back(ids[i]);
+    }
+  }
+
+  ids = buf;
+}
+
+
+void insert(std::string id, std::string beforeId,
+    std::vector<std::string>& ids) {
+  bool isIdFound = false;
+
+  for (size_t i = 0; i < ids.size(); ++i) {
+    if (ids[i] == id) {
+      isIdFound = true;
+      break;
+    }
+  }
+
+  if (isIdFound) return;
+
+  size_t beforeIdPos = 0;
+  bool isBeforeIdFound = false;
+
+  if (not beforeId.empty()) {
+    for (size_t i = 0; i < ids.size(); ++i) {
+      if (ids[i] == beforeId) {
+        isBeforeIdFound = true;
+        beforeIdPos = i;
+        break;
+      }
+    }
+  }
+
+  if (not isBeforeIdFound) {
+    ids.push_back(id);
+    return;
+  }
+
+  std::vector<std::string> buf;
+
+  for (size_t i = 0; i < beforeIdPos; ++i) {
+    buf.push_back(ids[i]);
+  }
+
+  buf.push_back(id);
+
+  for (size_t i = beforeIdPos; i < ids.size(); ++i) {
+    buf.push_back(ids[i]);
+  }
+
+  ids = buf;
+}
+
+
+void remove(std::string id, std::vector<std::string>& ids) {
+  std::vector<std::string> buf;
+
+  for (size_t i = 0; i < ids.size(); ++i) {
+    if (ids[i] == id) continue;
+    buf.push_back(ids[i]);
+  }
+
+  ids = buf;
+}
+
+
 } /* namespace shot */
