@@ -1,4 +1,5 @@
 #include <unordered_map>
+#include <unordered_set>
 #include <sstream>
 #include <cwctype>
 #include <locale>
@@ -197,6 +198,166 @@ std::unordered_map<wchar_t, wstring> transtable = {
 }; // transtable
 
 
+std::unordered_set<wchar_t> tagSymbols = {
+  // upper
+  // three-symbols replacements
+  L'Щ',
+  // on russian->english translation only first replacement will be done
+  // i.e. Sch
+  // but on english->russian translation both variants (Sch and SCH) will play
+  /* {'Щ', "SCH"}, */
+  // two-symbol replacements
+  L'Ё',
+  /* {'Ё', "YO"}, */
+  L'Ж',
+  /* {'Ж', "ZH"}, */
+  L'Ц',
+  /* {'Ц', "TS"}, */
+  L'Ч',
+  /* {'Ч', "CH"}, */
+  L'Ш',
+  /* {'Ш', "SH"}, */
+  L'Ы',
+  /* {'Ы', "YI"}, */
+  L'Ю',
+  /* {'Ю', "YU"}, */
+  L'Я',
+  /* {'Я', "YA"}, */
+  // one-symbol replacements
+  L'А',
+  L'Б',
+  L'В',
+  L'Г',
+  L'Д',
+  L'Е',
+  L'З',
+  L'И',
+  L'Й',
+  L'К',
+  L'Л',
+  L'М',
+  L'Н',
+  L'О',
+  L'П',
+  L'Р',
+  L'С',
+  L'Т',
+  L'У',
+  L'Ф',
+  L'Х',
+  L'Э',
+  L'Ъ',
+  L'Ь',
+  // lower
+  // three-symbols replacements
+  L'щ',
+  // two-symbols replacements
+  L'ё',
+  L'ж',
+  L'ц',
+  L'ч',
+  L'ш',
+  L'ы',
+  L'ю',
+  L'я',
+  // one-symbol replacements
+  L'а',
+  L'б',
+  L'в',
+  L'г',
+  L'д',
+  L'е',
+  L'з',
+  L'и',
+  L'й',
+  L'к',
+  L'л',
+  L'м',
+  L'н',
+  L'о',
+  L'п',
+  L'р',
+  L'с',
+  L'т',
+  L'у',
+  L'ф',
+  L'х',
+  L'э',
+  L'ъ',
+  L'ь',
+  // Make english alphabet full: append english-english pairs
+  // for symbols which is not used in russian-english
+  // translations. Used in slugify.
+  L'c',
+  L'q',
+  L'y',
+  L'x',
+  L'w',
+  L'1',
+  L'2',
+  L'3',
+  L'4',
+  L'5',
+  L'6',
+  L'7',
+  L'8',
+  L'9',
+  L'0',
+  L'A',
+  L'B',
+  L'C',
+  L'D',
+  L'E',
+  L'F',
+  L'G',
+  L'H',
+  L'I',
+  L'J',
+  L'K',
+  L'L',
+  L'M',
+  L'N',
+  L'O',
+  L'P',
+  L'Q',
+  L'R',
+  L'S',
+  L'T',
+  L'U',
+  L'V',
+  L'W',
+  L'X',
+  L'Y',
+  L'Z',
+
+  L'a',
+  L'b',
+  L'c',
+  L'd',
+  L'e',
+  L'f',
+  L'g',
+  L'h',
+  L'i',
+  L'j',
+  L'k',
+  L'l',
+  L'm',
+  L'n',
+  L'o',
+  L'p',
+  L'q',
+  L'r',
+  L's',
+  L't',
+  L'u',
+  L'v',
+  L'w',
+  L'x',
+  L'y',
+  L'z',
+}; // tagSymbols
+
 string toString(wstring& ws) {
   /* const type_codec& codec = std::use_facet<type_codec>(locale); */
   // fill objects
@@ -320,6 +481,71 @@ string slugify(string& text) {
   wstring wtext = toWstring(text);
   wstring wres = slugify(wtext);
   return toString(wres);
+}
+
+
+void isTagSymbol(wchar_t symbol) {
+}
+
+
+// TODO: find simple words and filter tags
+void createTags(std::string& text, std::vector<std::string>& tags) {
+  std::wstring wtext = toWstring(text);
+
+  size_t left = 0;
+  bool isLeftFound = false;
+  
+  for (size_t i = 0; i < wtext.length(); ++i) {
+    auto it = tagSymbols.find(wtext[i]);
+    if (it != tagSymbols.end()) { // tag symbol
+      if (isLeftFound == false) {
+        isLeftFound = true;
+        left = i;
+      }
+    } else { // not tag symbol
+      if (isLeftFound) { // found tag
+        isLeftFound = false;
+
+        if (i - left <= 1) continue; // dont add one symbol word
+
+        std::wstring wtag = wtext.substr(left, i - left);
+        auto tag = toString(wtag);
+        tags.push_back(tag);
+      }
+    }
+  }
+
+  // add last tag
+  if (isLeftFound) {
+    if (wtext.size() - left >= 2) { // dont add one symbol word
+
+      std::wstring wtag = wtext.substr(left);
+      auto tag = toString(wtag);
+      tags.push_back(tag);
+    }
+  }
+}
+
+
+void createSearchTags(std::vector<std::string>& tags,
+    std::vector<std::string>& searchTags) {
+  for (std::string& tag: tags) {
+    createIncompleteTags(tag, searchTags);
+  }
+}
+
+
+void createIncompleteTags(std::string& word, std::vector<std::string>& tags) {
+  std::wstring wword = toWstring(word);
+  if (wword.length() <= 2) return;
+
+  for (size_t i = 2; i < wword.length(); ++i) {
+    std::wstring wtag = wword.substr(0, i);
+    std::string tag = toString(wtag);
+    tags.push_back(tag);
+  }
+
+  tags.push_back(word);
 }
 
 

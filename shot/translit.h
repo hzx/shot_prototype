@@ -20,7 +20,10 @@ wstring translit(wstring& text);
 string translit(string& text);
 wstring slugify(wstring& text);
 string slugify(string& text);
-
+void createTags(std::string& text, std::vector<std::string>& tags);
+void createSearchTags(std::vector<std::string>& tags,
+    std::vector<std::string>& searchTags);
+void createIncompleteTags(std::string& word, std::vector<std::string>& tags);
 
 } /* namespace shot */
 

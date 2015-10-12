@@ -40,3 +40,38 @@ TEST(TranslitTest, slugify) {
   ASSERT_THAT(shot::slugify(raw2), expected2);
   ASSERT_THAT(shot::slugify(raw3), expected3);
 }
+
+
+TEST(TranslitTest, createTags) {
+  std::string name1 = " привет, в \"мир-123\" в";
+  std::vector<std::string> tags1 = {"привет", "мир", "123"};
+  
+  std::vector<std::string> actual1;
+  shot::createTags(name1, actual1);
+
+  ASSERT_THAT(actual1.size(), tags1.size());
+  ASSERT_THAT(actual1, tags1);
+}
+
+
+TEST(TranslitTest, createSearchTags) {
+  std::vector<std::string> tags1 = {"привет", "мир", "123"};
+  std::vector<std::string> incomplete1 = {"пр", "при", "прив", "приве",
+    "привет", "ми", "мир", "12", "123"};
+
+  std::vector<std::string> tags2 = {"hello", "world", "123"};
+  std::vector<std::string> incomplete2 = {"he", "hel", "hell", "hello",
+    "wo", "wor", "worl", "world", "12", "123"};
+
+  std::vector<std::string> actual1;
+  shot::createSearchTags(tags1, actual1);
+
+  ASSERT_THAT(actual1.size(), incomplete1.size());
+  ASSERT_THAT(actual1, incomplete1);
+
+  std::vector<std::string> actual2;
+  shot::createSearchTags(tags2, actual2);
+
+  ASSERT_THAT(actual2.size(), incomplete2.size());
+  ASSERT_THAT(actual2, incomplete2);
+}
