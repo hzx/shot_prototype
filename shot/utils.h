@@ -73,6 +73,8 @@ void insertItem(string& items, string& beforeId, string& id);
 void appendItem(string& items, string& id);
 void removeItem(string& items, string& id);
 void moveItem(string& items, string& beforeId, string& id);
+void split(std::string& text, char delimiter, std::vector<std::string>& chunks);
+std::string join(std::vector<std::string>& words, char delimiter);
 
   
 } /* namespace shot */

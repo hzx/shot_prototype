@@ -187,3 +187,42 @@ TEST(ShotUtils, parseGeneric) {
 
   ASSERT_THAT(fields.size(), testing::Eq(size));
 }
+
+
+TEST(ShotUtils, split) {
+  std::string text1 = "this,tags,field";
+  std::string text2 = ",empty,first,last,";
+  std::vector<std::string> expected1 = {"this", "tags", "field"};
+  std::vector<std::string> expected2 = {"", "empty", "first", "last", ""};
+
+  std::vector<std::string> actual1;
+  shot::split(text1, ',', actual1);
+
+  ASSERT_THAT(actual1.size(), expected1.size());
+  ASSERT_THAT(actual1, expected1);
+
+  std::vector<std::string> actual2;
+  shot::split(text2, ',', actual2);
+
+  ASSERT_THAT(actual2.size(), expected2.size());
+  ASSERT_THAT(actual2, expected2);
+}
+
+
+TEST(ShotUtils, join) {
+  std::vector<std::string> words1 = {"this", "tags", "field"};
+  std::vector<std::string> words2 = {};
+  std::vector<std::string> words3 = {"one"};
+
+  std::string expected1 = "this,tags,field";
+  std::string expected2 = "";
+  std::string expected3 = "one";
+
+  std::string actual1 = shot::join(words1, ',');
+  std::string actual2 = shot::join(words2, ',');
+  std::string actual3 = shot::join(words3, ',');
+
+  ASSERT_THAT(actual1, expected1);
+  ASSERT_THAT(actual2, expected2);
+  ASSERT_THAT(actual3, expected3);
+}

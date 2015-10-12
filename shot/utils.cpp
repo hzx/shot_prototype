@@ -820,4 +820,39 @@ void moveItem(string& items, string& beforeId, string& id) {
 }
 
 
+void split(std::string& text, char delimiter,
+    std::vector<std::string>& chunks) {
+  int left = 0;
+  bool isDelimiterFound = false;
+
+  for (size_t i = 0; i < text.size(); ++i) {
+    if (text[i] == delimiter) {
+      isDelimiterFound = true;
+      chunks.push_back(text.substr(left, i - left));
+      left = i + 1;
+    }
+  }
+
+  // add remainder
+  if (isDelimiterFound) {
+    chunks.push_back(text.substr(left, text.size() - left));
+  }
+}
+
+
+std::string join(std::vector<std::string>& words, char delimiter) {
+  std::ostringstream buf;
+
+  if (words.empty()) return "";
+  if (words.size() == 1) return words[0];
+
+  buf << words[0];
+  for (size_t i = 1; i < words.size(); ++i) {
+    buf << delimiter << words[i];
+  }
+
+  return buf.str();
+}
+
+
 } /* namespace shot */
