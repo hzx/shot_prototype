@@ -18,6 +18,30 @@ TEST(TranslitTest, toWstring) {
 }
 
 
+TEST(TranslitTest, toLower) {
+  std::wstring text =
+    L"ЩЁЖЦЧШЫЮЯАБВГДЕЗИЙКЛМНОПРСТУФХЭЪЬABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  std::wstring expected =
+    L"щёжцчшыюяабвгдезийклмнопрстуфхэъьabcdefghijklmnopqrstuvwxyz";
+
+  std::wstring actual = shot::toLower(text);
+
+  ASSERT_THAT(actual, expected);
+}
+
+
+TEST(TranslitTest, toUpper) {
+  std::wstring text =
+    L"щёжцчшыюяабвгдезийклмнопрстуфхэъьabcdefghijklmnopqrstuvwxyz";
+  std::wstring expected =
+    L"ЩЁЖЦЧШЫЮЯАБВГДЕЗИЙКЛМНОПРСТУФХЭЪЬABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  std::wstring actual = shot::toUpper(text);
+
+  ASSERT_THAT(actual, expected);
+}
+
+
 TEST(TranslitTest, translit) {
   wstring raw = L"Это тест - \"Название\" 0123456789";
   wstring raw2 = L"This test - \"Title\"";
@@ -43,14 +67,23 @@ TEST(TranslitTest, slugify) {
 
 
 TEST(TranslitTest, createTags) {
-  std::string name1 = " привет, в \"мир-123\" в";
-  std::vector<std::string> tags1 = {"привет", "мир", "123"};
+  std::string name1 = " Hello, a \"World-123\" a";
+  std::vector<std::string> tags1 = {"hello", "world", "123"};
   
   std::vector<std::string> actual1;
   shot::createTags(name1, actual1);
 
   ASSERT_THAT(actual1.size(), tags1.size());
   ASSERT_THAT(actual1, tags1);
+
+  std::string name2 = " Привет, в \"Мир-123\" в";
+  std::vector<std::string> tags2 = {"привет", "мир", "123"};
+  
+  std::vector<std::string> actual2;
+  shot::createTags(name2, actual2);
+
+  ASSERT_THAT(actual2.size(), tags2.size());
+  ASSERT_THAT(actual2, tags2);
 }
 
 

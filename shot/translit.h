@@ -14,6 +14,8 @@ namespace shot {
 
 string toString(wstring& ws);
 wstring toWstring(string& s);
+std::wstring toLower(std::wstring& s);
+std::wstring toUpper(std::wstring& s);
 wstring replaceDashSpace(wstring& text);
 wstring cleanSlug(wstring& text);
 wstring translit(wstring& text);
