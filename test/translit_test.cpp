@@ -108,3 +108,26 @@ TEST(TranslitTest, createSearchTags) {
   ASSERT_THAT(actual2.size(), incomplete2.size());
   ASSERT_THAT(actual2, incomplete2);
 }
+
+
+TEST(TranslitTest, createSearchTagsRawVersion) {
+  std::string text1 = " Hello, a \"World-123\" a";
+  std::vector<std::string> incomplete1 = {"he", "hel", "hell", "hello",
+    "wo", "wor", "worl", "world", "12", "123"};
+
+  std::vector<std::string> actual1;
+  shot::createSearchTags(text1, actual1);
+
+  ASSERT_THAT(actual1.size(), incomplete1.size());
+  ASSERT_THAT(actual1, incomplete1);
+
+  std::string text2 = " Привет, в \"Мир-123\" в";
+  std::vector<std::string> incomplete2 = {"пр", "при", "прив", "приве",
+    "привет", "ми", "мир", "12", "123"};
+
+  std::vector<std::string> actual2;
+  shot::createSearchTags(text2, actual2);
+
+  ASSERT_THAT(actual2.size(), incomplete2.size());
+  ASSERT_THAT(actual2, incomplete2);
+}

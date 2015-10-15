@@ -700,6 +700,14 @@ void createSearchTags(std::vector<std::string>& tags,
 }
 
 
+void createSearchTags(std::string& text, std::vector<std::string>& searchTags) {
+  std::vector<std::string> tags;
+
+  createTags(text, tags);
+  createSearchTags(tags, searchTags);
+}
+
+
 void createIncompleteTags(std::string& word, std::vector<std::string>& tags) {
   std::wstring wword = toWstring(word);
   if (wword.length() <= 2) return;
