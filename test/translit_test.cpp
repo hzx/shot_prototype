@@ -87,6 +87,18 @@ TEST(TranslitTest, createTags) {
 }
 
 
+TEST(TranslitTest, createTagsWithoutPretexts) {
+  std::string name1 = "дом на крыше, под крышей, из-за гор";
+  std::vector<std::string> tags1 = {"дом", "крыше", "крышей", "гор"};
+
+  std::vector<std::string> actual1;
+  shot::createTags(name1, actual1);
+
+  ASSERT_THAT(actual1.size(), tags1.size());
+  ASSERT_THAT(actual1, tags1);
+}
+
+
 TEST(TranslitTest, createSearchTags) {
   std::vector<std::string> tags1 = {"привет", "мир", "123"};
   std::vector<std::string> incomplete1 = {"пр", "при", "прив", "приве",

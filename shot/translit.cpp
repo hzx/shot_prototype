@@ -488,6 +488,18 @@ std::unordered_map<wchar_t, wchar_t> transtableToWUpper = {
   {L'z', L'Z'},
 }; // transtableToWUpper
 
+
+std::unordered_set<std::wstring> pretexts = {
+  // russian pretexts
+  L"в", L"без", L"до", L"из", L"к", L"на",
+  L"по", L"о", L"от", L"перед", L"при", L"через", L"с", L"у", L"за", L"над",
+  L"об", L"под", L"про", L"для",
+  // TODO: add more russian pretexts from
+  // https://ru.wiktionary.org/wiki/%D0%9A%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D1%8F:%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B5_%D0%BF%D1%80%D0%B5%D0%B4%D0%BB%D0%BE%D0%B3%D0%B8
+  // TODO: add english pretexts
+};
+
+
 string toString(wstring& ws) {
   /* const type_codec& codec = std::use_facet<type_codec>(locale); */
   // fill objects
@@ -674,8 +686,12 @@ void createTags(std::string& text, std::vector<std::string>& tags) {
         if (i - left <= 1) continue; // dont add one symbol word
 
         std::wstring wtag = wtext.substr(left, i - left);
-        auto tag = toString(wtag);
-        tags.push_back(tag);
+        auto pretext = pretexts.find(wtag);
+
+        if (pretext == pretexts.end()) { // not pretext word
+          auto tag = toString(wtag);
+          tags.push_back(tag);
+        }
       }
     }
   }
