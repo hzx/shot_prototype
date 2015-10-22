@@ -40,14 +40,36 @@ int cursorToStream(mongo::DBClientCursor& cursor, ostream& stream) {
 
   while (cursor.more()) {
     ++counter;
-    T model;
     bson::bo obj = cursor.next();
+    T model;
     model.fromDbFormat(obj);
     model.toCompactFormat(stream);
     stream << shot::DELIM_ROW;
   }
 
   return counter;
+}
+
+
+template<class T>
+void cursorToVector(mongo::DBClientCursor& cursor,
+    std::vector<T>& vec) {
+  while (cursor.more()) {
+    bson::bo obj = cursor.next();
+    T model;
+    model.fromDbFormat(obj);
+    vec.push_back(model);
+  }
+}
+
+
+template<class T>
+void vectorToStream(int table, std::vector<T>& vec, std::ostream& stream) {
+  stream << table << shot::DELIM_FIELD << vec.size() << shot::DELIM_ROW;
+  for (auto& item: vec) {
+    item.toCompactFormat(stream);
+    stream << shot::DELIM_ROW;
+  }
 }
 
 
