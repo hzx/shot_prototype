@@ -3,30 +3,29 @@
 
 
 #include <string>
-
-
-using std::string;
-using std::wstring;
+#include <unordered_set>
 
 
 namespace shot {
 
 
-string toString(wstring& ws);
-wstring toWstring(string& s);
-std::wstring toLower(std::wstring& s);
-std::wstring toUpper(std::wstring& s);
-wstring replaceDashSpace(wstring& text);
-wstring cleanSlug(wstring& text);
-wstring translit(wstring& text);
-string translit(string& text);
-wstring slugify(wstring& text);
-string slugify(string& text);
-void createTags(std::string& text, std::vector<std::string>& tags);
-void createSearchTags(std::vector<std::string>& tags,
-    std::vector<std::string>& searchTags);
-void createSearchTags(std::string& text, std::vector<std::string>& searchTags);
-void createIncompleteTags(std::string& word, std::vector<std::string>& tags);
+std::string toString(std::wstring const& ws);
+std::wstring toWstring(std::string const& s);
+std::wstring toLower(std::wstring const& s);
+std::wstring toUpper(std::wstring const& s);
+std::wstring replaceDashSpace(std::wstring const& text);
+std::wstring cleanSlug(std::wstring const& text);
+std::wstring translit(std::wstring const& text);
+std::string translit(std::string const& text);
+std::wstring slugify(std::wstring const& text);
+std::string slugify(std::string const& text);
+void createTags(std::string const& text, std::unordered_set<std::string>& tags);
+void createSearchTags(std::unordered_set<std::string> const& tags,
+    std::unordered_set<std::string>& searchTags);
+void createSearchTags(std::string const& text,
+    std::unordered_set<std::string>& searchTags);
+void createIncompleteTags(std::string const& word,
+    std::unordered_set<std::string>& tags);
 
 } /* namespace shot */
 

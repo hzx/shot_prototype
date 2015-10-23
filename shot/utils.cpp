@@ -855,6 +855,27 @@ std::string join(std::vector<std::string>& words, char delimiter) {
 }
 
 
+std::string joinSet(std::unordered_set<std::string> const& words, char delimiter) {
+  std::ostringstream buf;
+
+  if (words.empty()) return "";
+  if (words.size() == 1) return *(words.begin());
+
+  buf << *(words.begin());
+
+  auto it = words.begin();
+  ++it;
+  for (; it != words.end(); ++it) {
+    buf << delimiter << *it;
+  }
+
+  /* std::copy(words.begin(), words.end(), */
+  /*     std::ostream_iterator<std::string>(buf, delimiter)); */
+
+  return buf.str();
+}
+
+
 void move(std::string id, std::string beforeId, std::vector<std::string>& ids) {
   size_t idPos = 0;
   bool isIdFound = false;

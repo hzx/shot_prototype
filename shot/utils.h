@@ -4,6 +4,7 @@
 
 #include <string>
 #include <vector>
+#include <unordered_set>
 #include <ctime>
 
 
@@ -75,6 +76,7 @@ void removeItem(string& items, string& id);
 void moveItem(string& items, string& beforeId, string& id);
 void split(std::string& text, char delimiter, std::vector<std::string>& chunks);
 std::string join(std::vector<std::string>& words, char delimiter);
+std::string joinSet(std::unordered_set<std::string> const& words, char delimiter);
 void move(std::string id, std::string beforeId, std::vector<std::string>& ids);
 void insert(std::string id, std::string beforeId,
     std::vector<std::string>& ids);

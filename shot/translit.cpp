@@ -9,9 +9,6 @@
 #include "translit.h"
 
 
-using std::wstring;
-
-
 namespace shot {
 
 
@@ -22,7 +19,7 @@ std::locale locale("en_US.UTF-8");
 const type_codec& codec = std::use_facet<type_codec>(locale);
 
 
-std::unordered_map<wchar_t, wstring> transtable = {
+std::unordered_map<wchar_t, std::wstring> transtable = {
   {L'\'', L"'"},
   {L'"', L"\""},
   {L'‘', L"'"},
@@ -500,7 +497,7 @@ std::unordered_set<std::wstring> pretexts = {
 };
 
 
-string toString(wstring& ws) {
+std::string toString(std::wstring const& ws) {
   /* const type_codec& codec = std::use_facet<type_codec>(locale); */
   // fill objects
   size_t size = ws.length() * sizeof(wchar_t);
@@ -516,13 +513,13 @@ string toString(wstring& ws) {
     return "not ok";
   }
 
-  string s(&buf[0], pc);
+  std::string s(&buf[0], pc);
 
   return s;
 }
 
 
-wstring toWstring(string& s) {
+std::wstring toWstring(std::string const& s) {
   /* const type_codec& codec = std::use_facet<type_codec>(locale); */
   // fill objects
   size_t length = s.length();
@@ -538,13 +535,13 @@ wstring toWstring(string& s) {
     return L"";
   }
 
-  wstring ws(&buf[0], pw);
+  std::wstring ws(&buf[0], pw);
 
   return ws;
 }
 
 
-std::wstring toLower(std::wstring& s) {
+std::wstring toLower(std::wstring const& s) {
   std::wstring lower;
   lower.resize(s.length());
 
@@ -561,7 +558,7 @@ std::wstring toLower(std::wstring& s) {
 }
 
 
-std::wstring toUpper(std::wstring& s) {
+std::wstring toUpper(std::wstring const& s) {
   std::wstring lower;
   lower.resize(s.length());
 
@@ -578,7 +575,7 @@ std::wstring toUpper(std::wstring& s) {
 }
 
 
-wstring replaceDashSpace(wstring& text) {
+std::wstring replaceDashSpace(std::wstring const& text) {
   std::wostringstream buf;
   wchar_t ch;
   bool lastDash = false;
@@ -610,7 +607,7 @@ wstring replaceDashSpace(wstring& text) {
 }
 
 
-wstring cleanSlug(wstring& text) {
+std::wstring cleanSlug(std::wstring const& text) {
   std::wostringstream buf;
 
   wchar_t ch;
@@ -623,7 +620,7 @@ wstring cleanSlug(wstring& text) {
 }
 
 
-wstring translit(wstring& text) {
+std::wstring translit(std::wstring const& text) {
   std::wostringstream buf;
 
   for (size_t i = 0, length = text.length(); i < length; ++i) {
@@ -637,37 +634,34 @@ wstring translit(wstring& text) {
 }
 
 
-string translit(string& text) {
-  wstring wtext = toWstring(text);
-  wstring wres = translit(wtext);
+std::string translit(std::string const& text) {
+  std::wstring wtext = toWstring(text);
+  std::wstring wres = translit(wtext);
   return toString(wres);
 }
 
 
-wstring slugify(wstring& text) {
-  wstring data = replaceDashSpace(text);
+std::wstring slugify(std::wstring const& text) {
+  std::wstring data = replaceDashSpace(text);
 
-  wstring result = translit(data);
+  std::wstring result = translit(data);
 
   return cleanSlug(result);
 }
 
 
-string slugify(string& text) {
-  wstring wtext = toWstring(text);
-  wstring wres = slugify(wtext);
+std::string slugify(std::string const& text) {
+  std::wstring wtext = toWstring(text);
+  std::wstring wres = slugify(wtext);
+
   return toString(wres);
 }
 
 
-void isTagSymbol(wchar_t symbol) {
-}
-
-
-// TODO: find simple words and filter tags
-void createTags(std::string& text, std::vector<std::string>& tags) {
+void createTags(std::string const& text, std::unordered_set<std::string>& tags) {
   std::wstring wtextMixed = toWstring(text);
   std::wstring wtext = toLower(wtextMixed);
+  /* std::unordered_set<std::string> buf; */
 
   size_t left = 0;
   bool isLeftFound = false;
@@ -690,7 +684,8 @@ void createTags(std::string& text, std::vector<std::string>& tags) {
 
         if (pretext == pretexts.end()) { // not pretext word
           auto tag = toString(wtag);
-          tags.push_back(tag);
+          /* tags.push_back(tag); */
+          tags.insert(tag);
         }
       }
     }
@@ -702,39 +697,45 @@ void createTags(std::string& text, std::vector<std::string>& tags) {
 
       std::wstring wtag = wtext.substr(left);
       auto tag = toString(wtag);
-      tags.push_back(tag);
+      /* tags.push_back(tag); */
+      tags.insert(tag);
     }
   }
+
+  // copy to tags
+  /* std::copy(buf.begin(), buf.end(), std::back_inserter(tags)); */
 }
 
 
-void createSearchTags(std::vector<std::string>& tags,
-    std::vector<std::string>& searchTags) {
-  for (std::string& tag: tags) {
+void createSearchTags(std::unordered_set<std::string> const& tags,
+    std::unordered_set<std::string>& searchTags) {
+  for (std::string const& tag: tags) {
     createIncompleteTags(tag, searchTags);
   }
 }
 
 
-void createSearchTags(std::string& text, std::vector<std::string>& searchTags) {
-  std::vector<std::string> tags;
+void createSearchTags(std::string const& text,
+    std::unordered_set<std::string>& searchTags) {
+  std::unordered_set<std::string> tags;
 
   createTags(text, tags);
   createSearchTags(tags, searchTags);
 }
 
 
-void createIncompleteTags(std::string& word, std::vector<std::string>& tags) {
+void createIncompleteTags(std::string const& word,
+    std::unordered_set<std::string>& tags) {
   std::wstring wword = toWstring(word);
   if (wword.length() <= 2) return;
 
   for (size_t i = 2; i < wword.length(); ++i) {
     std::wstring wtag = wword.substr(0, i);
     std::string tag = toString(wtag);
-    tags.push_back(tag);
+    tags.insert(tag);
   }
 
-  tags.push_back(word);
+  tags.insert(word);
 }
 
 
