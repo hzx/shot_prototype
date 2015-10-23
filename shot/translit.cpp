@@ -727,7 +727,7 @@ void createSearchTags(std::string const& text,
 void createIncompleteTags(std::string const& word,
     std::unordered_set<std::string>& tags) {
   std::wstring wword = toWstring(word);
-  if (wword.length() <= 2) return;
+  if (wword.length() < 2) return;
 
   for (size_t i = 2; i < wword.length(); ++i) {
     std::wstring wtag = wword.substr(0, i);

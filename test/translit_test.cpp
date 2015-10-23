@@ -156,3 +156,15 @@ TEST(TranslitTest, createSearchTagsRawVersion) {
   ASSERT_THAT(actual2.size(), incomplete2.size());
   ASSERT_THAT(actual2, incomplete2);
 }
+
+
+TEST(TranslitTest, createSearchTagsFrom2SymbolTag) {
+  std::string text = "abc-01";
+  std::unordered_set<std::string> tags = {"ab", "abc", "01"};
+
+  std::unordered_set<std::string> actual;
+  shot::createSearchTags(text, actual);
+
+  ASSERT_THAT(tags.size(), actual.size());
+  ASSERT_THAT(tags, actual);
+}
