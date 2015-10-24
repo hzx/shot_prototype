@@ -29,6 +29,7 @@ string getExtension(const string& filename);
 string randomFilename(const string& filename);
 void copyFile(const string& dest, const string& src);
 void moveFile(const string& dest, const string& src);
+void rm(std::string const& filename);
 void tolower(string& value);
 string encodeUrl(const string& value);
 string decodeUrl(const string& value);

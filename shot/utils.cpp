@@ -213,6 +213,13 @@ void moveFile(const string& dest, const string& src) {
 }
 
 
+void rm(std::string const& filename) {
+  if (!pathExists(filename.data())) return;
+
+  std::remove(filename.data());
+}
+
+
 void tolower(string& value) {
   std::transform(value.begin(), value.end(), value.begin(), ::tolower);
 }
