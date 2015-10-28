@@ -60,8 +60,8 @@ int Options::parseCmd(int argc, const char* argv[]) {
     } else {
       staticDir = directory + "/static";
     }
-    imgDir = staticDir + "/img";
-    dataDir = staticDir + "/data";
+    imgDir = staticDir + "/img/";
+    dataDir = staticDir + "/data/";
   } catch (std::exception& e) {
     return -1;
   } catch (...) {

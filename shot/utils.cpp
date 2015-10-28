@@ -827,7 +827,7 @@ void moveItem(string& items, string& beforeId, string& id) {
 }
 
 
-void split(std::string& text, char delimiter,
+void split(std::string const& text, char delimiter,
     std::vector<std::string>& chunks) {
   int left = 0;
   bool isDelimiterFound = false;

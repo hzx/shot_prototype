@@ -31,6 +31,7 @@ public:
   virtual void toDbFormat(bson::bob& builder) = 0;
   virtual void toCompactFormat(ostream& stream) = 0;
   int fromCompactFormat(string const& raw);
+  int fromCustomCompactFormat(string const& raw, char delimiter);
 };
 
 
