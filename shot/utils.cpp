@@ -15,6 +15,7 @@
 #include <unordered_map>
 #include <openssl/sha.h>
 #include <openssl/md5.h>
+#include <cctype>
 #include "http.h"
 #include "utils.h"
 
@@ -847,6 +848,37 @@ void split(std::string const& text, char delimiter,
 }
 
 
+void splitInts(std::string const& text, std::vector<int>& nums) {
+  int left = 0;
+  bool found = false;
+
+  for (size_t i = 0; i < text.size(); ++i) {
+    if (std::isdigit(text[i])) {
+      if (!found) {
+        found = true;
+        left = i;
+      }
+    } else {
+      if (found) {
+        found = false;
+        try {
+          nums.push_back(std::stoi(text.substr(left, i - left)));
+        } catch (...) {
+        }
+      }
+    }
+  }
+
+  // add remainder
+  if (found) {
+    try {
+      nums.push_back(std::stoi(text.substr(left, text.length() - left)));
+    } catch (...) {
+    }
+  }
+}
+
+
 std::string join(std::vector<std::string>& words, char delimiter) {
   std::ostringstream buf;
 
@@ -856,6 +888,22 @@ std::string join(std::vector<std::string>& words, char delimiter) {
   buf << words[0];
   for (size_t i = 1; i < words.size(); ++i) {
     buf << delimiter << words[i];
+  }
+
+  return buf.str();
+}
+
+
+std::string join(std::vector<int>& nums, char delimiter) {
+  std::ostringstream buf;
+
+  if (nums.empty()) return "";
+  if (nums.size() == 1) buf << nums[0];
+  else {
+    buf << nums[0];
+    for (size_t i = 1; i < nums.size(); ++i) {
+      buf << delimiter << nums[i];
+    }
   }
 
   return buf.str();

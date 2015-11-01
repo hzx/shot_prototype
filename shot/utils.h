@@ -76,7 +76,9 @@ void appendItem(string& items, string& id);
 void removeItem(string& items, string& id);
 void moveItem(string& items, string& beforeId, string& id);
 void split(std::string const& text, char delimiter, std::vector<std::string>& chunks);
+void splitInts(std::string const& text, std::vector<int>& nums);
 std::string join(std::vector<std::string>& words, char delimiter);
+std::string join(std::vector<int>& nums, char delimiter);
 std::string joinSet(std::unordered_set<std::string> const& words, char delimiter);
 void move(std::string id, std::string beforeId, std::vector<std::string>& ids);
 void insert(std::string id, std::string beforeId,

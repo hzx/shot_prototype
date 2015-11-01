@@ -228,6 +228,18 @@ TEST(ShotUtils, split) {
 }
 
 
+TEST(ShotUtils, splitInts) {
+  std::string text = "01 23: 98";
+  std::vector<int> expected = {1, 23, 98};
+
+  std::vector<int> actual;
+  shot::splitInts(text, actual);
+
+  ASSERT_THAT(actual.size(), expected.size());
+  ASSERT_THAT(actual, expected);
+}
+
+
 TEST(ShotUtils, join) {
   std::vector<std::string> words1 = {"this", "tags", "field"};
   std::vector<std::string> words2 = {};
