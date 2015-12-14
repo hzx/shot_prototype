@@ -1,7 +1,4 @@
-#ifndef SHOT_MODEL_H
-#define SHOT_MODEL_H
-
-
+#pragma once
 #include <ostream>
 #include <sstream>
 #include <string>
@@ -86,6 +83,3 @@ int tableToStream(int table, mongo::DBClientCursor& cursor, ostream& stream) {
 
   
 } /* namespace shot */
-
-
-#endif /* end of include guard: SHOT_MODEL_H */

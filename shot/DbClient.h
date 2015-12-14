@@ -1,7 +1,4 @@
-#ifndef SHOT_DBCLIENT_H
-#define SHOT_DBCLIENT_H
-
-
+#pragma once
 #include <string>
 #include <vector>
 #include <mongo/bson/bson.h>
@@ -53,5 +50,3 @@ private:
 
 
 } /* namespace shot */
-
-#endif /* end of include guard: SHOT_DBCLIENT_H */

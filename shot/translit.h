@@ -1,7 +1,4 @@
-#ifndef SHOT_TRANSLIT_H
-#define SHOT_TRANSLIT_H
-
-
+#pragma once
 #include <string>
 #include <unordered_set>
 
@@ -28,6 +25,3 @@ void createIncompleteTags(std::string const& word,
     std::unordered_set<std::string>& tags);
 
 } /* namespace shot */
-
-
-#endif /* end of include guard: SHOT_TRANSLIT_H */

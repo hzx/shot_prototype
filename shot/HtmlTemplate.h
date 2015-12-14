@@ -1,7 +1,4 @@
-#ifndef SHOT_HTML_TEMPLATE_H
-#define SHOT_HTML_TEMPLATE_H
-
-
+#pragma once
 #include <string>
 #include <vector>
 #include <sstream>
@@ -24,5 +21,3 @@ public:
 
 
 } /* namespace shot */
-
-#endif /* end of include guard: SHOT_HTML_TEMPLATE_H */

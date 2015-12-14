@@ -1,7 +1,4 @@
-#ifndef SHOT_PARSER_H
-#define SHOT_PARSER_H
-
-
+#pragma once
 #include <memory>
 #include <sstream>
 #include <string>
@@ -54,5 +51,3 @@ public:
 
 
 } /* namespace shot */
-
-#endif /* end of include guard: SHOT_PARSER_H */

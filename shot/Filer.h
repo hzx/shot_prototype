@@ -1,7 +1,4 @@
-#ifndef SHOT_FILER_H
-#define SHOT_FILER_H
-
-
+#pragma once
 #include <string>
 #include <unordered_map>
 
@@ -31,5 +28,3 @@ private:
 
 
 } /* namespace shot */
-
-#endif /* end of include guard: SHOT_FILER_H */

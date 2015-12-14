@@ -49,6 +49,16 @@ void Handler::xpost() {
 }
 
 
+void Handler::del() {
+  response.status = HTTP_406;
+}
+
+
+void Handler::xdel() {
+  response.status = HTTP_406;
+}
+
+
 string Handler::getXsrf() {
   // get from request or create
   if (xsrf.length() == 0) {

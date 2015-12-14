@@ -1,7 +1,4 @@
-#ifndef SHOT_RESPONSE_H
-#define SHOT_RESPONSE_H
-
-
+#pragma once
 #include <vector>
 #include <string>
 #include <unordered_map>
@@ -44,6 +41,3 @@ public:
 
   
 } /* namespace shot */
-
-
-#endif /* end of include guard: SHOT_RESPONSE_H */

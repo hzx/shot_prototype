@@ -1,7 +1,4 @@
-#ifndef SHOT_REQUEST_H
-#define SHOT_REQUEST_H
-
-
+#pragma once
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -69,5 +66,3 @@ private:
 
 
 } /* namespace shot */
-
-#endif /* end of include guard: SHOT_REQUEST_H */

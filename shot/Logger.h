@@ -1,7 +1,4 @@
-#ifndef SHOT_LOGGER_H
-#define SHOT_LOGGER_H
-
-
+#pragma once
 #include <string>
 #include <iostream>
 
@@ -22,5 +19,3 @@ public:
 
 
 } /* namespace shot */
-
-#endif /* end of include guard: SHOT_LOGGER_H */

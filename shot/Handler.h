@@ -1,7 +1,4 @@
-#ifndef SHOT_HANDLER_H
-#define SHOT_HANDLER_H
-
-
+#pragma once
 #include <memory>
 #include "Request.h"
 #include "Response.h"
@@ -24,6 +21,8 @@ public:
   virtual void xget();
   virtual void post();
   virtual void xpost();
+  virtual void del();
+  virtual void xdel();
 
   string getXsrf();
   void setXsrf();
@@ -42,5 +41,3 @@ public:
 
 
 } /* namespace shot */
-
-#endif /* end of include guard: SHOT_HANDLER_H */

@@ -1,7 +1,4 @@
-#ifndef SHOT_SYSTEM_HANDLERS_H
-#define SHOT_SYSTEM_HANDLERS_H
-
-
+#pragma once
 #include "HtmlTemplate.h"
 #include "Handler.h"
 
@@ -129,6 +126,3 @@ class DebugHandler: public Handler {
 
   
 } /* namespace shot */
-
-
-#endif /* end of include guard: SHOT_SYSTEM_HANDLERS_H */

@@ -1,6 +1,4 @@
-#ifndef SHOT_OPTIONS_H
-#define SHOT_OPTIONS_H
-
+#pragma once
 #include <string>
 
 
@@ -53,5 +51,3 @@ public:
 
 
 } /* namespace shot */
-
-#endif /* end of include guard: SHOT_OPTIONS_H */

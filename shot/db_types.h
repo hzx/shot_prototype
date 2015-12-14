@@ -1,7 +1,4 @@
-#ifndef SHOT_DB_TYPES_H
-#define SHOT_DB_TYPES_H
-
-
+#pragma once
 #include <string>
 #include <vector>
 #include <ostream>
@@ -94,6 +91,3 @@ public:
 
 
 } /* namespace shot */
-
-
-#endif /* end of include guard: SHOT_DB_TYPES_H */

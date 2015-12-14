@@ -1,5 +1,4 @@
-#ifndef SHOT_HTTP_H
-#define SHOT_HTTP_H
+#pragma once
 
 
 namespace shot {
@@ -89,5 +88,3 @@ const char DELIM_FIELD = '\2';
 
 
 } /* namespace shot */
-
-#endif /* end of include guard: SHOT_HTTP_H */

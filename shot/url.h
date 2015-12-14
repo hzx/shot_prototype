@@ -1,7 +1,4 @@
-#ifndef SHOT_URL_H
-#define SHOT_URL_H
-
-
+#pragma once
 #include <string>
 
 
@@ -15,6 +12,3 @@ string staticUrl(string filename);
 
   
 } /* namespace shot */
-
-
-#endif /* end of include guard: SHOT_URL_H */

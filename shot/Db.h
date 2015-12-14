@@ -1,7 +1,4 @@
-#ifndef SHOT_DB_H
-#define SHOT_DB_H
-
-
+#pragma once
 #include "db_types.h"
 
 
@@ -19,6 +16,3 @@ public:
 
 
 } /* namespace shot */
-
-
-#endif /* end of include guard: SHOT_DB_H */

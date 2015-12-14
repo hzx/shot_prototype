@@ -1,6 +1,4 @@
-#ifndef SHOT_VALUES_H
-#define SHOT_VALUES_H
-
+#pragma once
 #include <string>
 
 using std::string;
@@ -58,5 +56,3 @@ public:
 
 
 } /* namespace shot */
-
-#endif /* end of include guard: SHOT_VALUES_H */

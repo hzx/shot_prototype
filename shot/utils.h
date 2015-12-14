@@ -1,7 +1,4 @@
-#ifndef SHOT_UTILS_H
-#define SHOT_UTILS_H
-
-
+#pragma once
 #include <string>
 #include <vector>
 #include <unordered_set>
@@ -87,5 +84,3 @@ void remove(std::string id, std::vector<std::string>& ids);
 
   
 } /* namespace shot */
-
-#endif /* end of include guard: SHOT_UTILS_H */

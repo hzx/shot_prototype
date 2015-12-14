@@ -1,6 +1,4 @@
-#ifndef SHOT_SERVER_H
-#define SHOT_SERVER_H
-
+#pragma once
 #include <string>
 #include <unordered_map>
 #include <memory>
@@ -87,5 +85,3 @@ private:
 
 
 } /* namespace shot */
-
-#endif /* end of include guard: SHOT_SERVER_H */

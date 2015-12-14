@@ -1,7 +1,4 @@
-#ifndef SHOT_SITEMAPTEMPLATE_H
-#define SHOT_SITEMAPTEMPLATE_H
-
-
+#pragma once
 #include <string>
 #include <vector>
 #include <sstream>
@@ -31,6 +28,3 @@ public:
 
   
 } /* namespace shot */
-
-
-#endif /* end of include guard: SHOT_SITEMAPTEMPLATE_H */

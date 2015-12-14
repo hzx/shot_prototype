@@ -1,7 +1,4 @@
-#ifndef SHOT_APPHANDLER_H
-#define SHOT_APPHANDLER_H
-
-
+#pragma once
 #include <string>
 #include "HtmlTemplate.h"
 #include "Handler.h"
@@ -26,6 +23,3 @@ public:
 
 
 } /* namespace shot */
-
-
-#endif /* end of include guard: SHOT_APPHANDLER_H */

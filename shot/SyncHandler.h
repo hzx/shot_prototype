@@ -1,7 +1,4 @@
-#ifndef SHOT_SYNC_HANDLER_H
-#define SHOT_SYNC_HANDLER_H
-
-
+#pragma once
 #include "Handler.h"
 
 
@@ -37,6 +34,3 @@ public:
 
   
 } /* namespace shot */
-
-
-#endif /* end of include guard: SHOT_SYNC_HANDLER_H */
