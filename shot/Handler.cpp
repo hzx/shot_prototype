@@ -48,6 +48,14 @@ void Handler::xpost() {
   response.status = HTTP_406;
 }
 
+void Handler::put() {
+  response.status = HTTP_406;
+}
+
+void Handler::xput() {
+  response.status = HTTP_406;
+}
+
 
 void Handler::del() {
   response.status = HTTP_406;

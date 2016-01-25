@@ -21,6 +21,8 @@ public:
   virtual void xget();
   virtual void post();
   virtual void xpost();
+  virtual void put();
+  virtual void xput();
   virtual void del();
   virtual void xdel();
 
